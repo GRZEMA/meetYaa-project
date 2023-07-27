@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;500;700&display=swap');
+
 html,
 body,
 div,
@@ -63,7 +65,8 @@ td {
 	font-weight: inherit;
 	font-style: inherit;
 	font-size: 100%;
-	font-family: inherit;
+	font-family: 'Exo', sans-serif;
+	color: #eef4ed;
 	vertical-align: baseline;
 }
 /* remember to define focus styles! */
@@ -100,4 +103,12 @@ q:after {
 blockquote,
 q {
 	quotes: '' '';
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
 }

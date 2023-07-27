@@ -1,0 +1,20 @@
+.heading-box {
+	padding: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.text {
+		font-size: 3.2rem;
+		font-weight: bold;
+		color: #134074;
+	}
+
+	.underline {
+		margin-top: 0.5rem;
+		width: 250px;
+		height: 7px;
+		background-color: #8da9c4;
+	}
+}

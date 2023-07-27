@@ -1,0 +1,40 @@
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 5vh;
+	height: 95vh;
+	background-color: #134074;
+
+	.animations {
+		background-color: #eef4ed;
+		border-radius: 160px;
+		padding: 2rem;
+		margin: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.animation-box {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			height: 50%;
+
+			p {
+				font-size: 2rem;
+				font-weight: bold;
+				color: #134074;
+			}
+		}
+	}
+
+	h1 {
+		width: 40%;
+		font-size: 4rem;
+		font-weight: bold;
+		padding-left: 2rem;
+	}
+}
