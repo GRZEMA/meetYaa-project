@@ -1,0 +1,20 @@
+.logo {
+	font-size: 6em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Gochi Hand', cursive;
+	margin-left: 0.5em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	p {
+		margin-left: 0.5em;
+	}
+}
+
+.link {
+	text-decoration: none;
+	color: #eef4ed;
+}
