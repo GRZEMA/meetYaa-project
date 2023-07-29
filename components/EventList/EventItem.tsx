@@ -7,7 +7,6 @@ import classes from './EventItem.module.scss'
 interface EventItemProps {
 	eventName: string
 	eventDate: string
-	eventTime: string
 	eventImage: string
 	briefDescription: string
 }
@@ -26,7 +25,7 @@ const EventItem = ({
 					<time>{eventDate}</time>
 				</p>
 				<p>{briefDescription}</p>
-				<Button text='More...' onClick={() => {}}/>
+				<Button text='More...' onClick={() => {}} />
 			</div>
 			<div className={classes['event-image']}>
 				<Image src={eventImage} alt={eventName} height={100} width={100} />
