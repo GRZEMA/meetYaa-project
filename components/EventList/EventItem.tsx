@@ -19,6 +19,9 @@ const EventItem = ({
 }: EventItemProps): JSX.Element => {
 	return (
 		<div className={classes.event}>
+			<div className={classes['event-image']}>
+				<Image src={eventImage} alt={eventName} fill />
+			</div>
 			<div className={classes['event-description']}>
 				<h3>{eventName}</h3>
 				<p>
@@ -26,9 +29,6 @@ const EventItem = ({
 				</p>
 				<p>{briefDescription}</p>
 				<Button text='More...' onClick={() => {}} />
-			</div>
-			<div className={classes['event-image']}>
-				<Image src={eventImage} alt={eventName} height={100} width={100} />
 			</div>
 		</div>
 	)
