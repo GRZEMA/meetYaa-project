@@ -1,9 +1,13 @@
 .navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: #134074;
 	height: 80px;
+	z-index: 999;
 }
 
 .mobile-navbar {
@@ -15,7 +19,6 @@
 .mobile-navbar,
 .desktop-navbar {
 	padding: 1rem;
-	position: fixed;
 	width: 100%;
 	overflow: hidden;
 }

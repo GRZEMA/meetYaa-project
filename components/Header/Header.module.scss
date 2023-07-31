@@ -1,0 +1,171 @@
+.header {
+	background-color: #134074;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	color: #eef4ed;
+	padding: 1rem;
+}
+
+.wrapper {
+	display: flex;
+	height: 100%;
+	margin: 0 auto;
+	max-width: 1200px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.heading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20%;
+	width: 100%;
+	padding: 1rem;
+}
+
+.animations {
+	overflow: hidden;
+	background-color: #eef4ed;
+	height: 50%;
+	border-radius: 40px;
+}
+
+.animation {
+	color: #134074;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+	&:nth-child(2) {
+		flex-direction: row-reverse;
+	}
+
+	.animation-src {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50%;
+	}
+
+	.animation-text {
+		flex-grow: 1;
+		width: 40%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 0.8rem;
+		padding: 1rem;
+	}
+}
+
+.explore {
+	position: absolute;
+	padding: 0.75rem 3rem;
+	bottom: 5vh;
+	left: 50%;
+	transform: translateX(-50%);
+	border: none;
+	background-color: #8da9c4;
+	border-radius: 2rem;
+	transition: background-color 0.3s ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #64798c;
+	}
+
+	a {
+		text-decoration: none;
+		color: #134074;
+	}
+}
+
+@media (min-width: 450px) {
+	.animations {
+		height: 50%;
+	}
+}
+
+@media (min-width: 576px) {
+	.heading {
+		font-size: 1.4rem;
+	}
+
+	.animations {
+		width: 80%;
+	}
+
+	.animation {
+		.animation-src {
+			width: 40%;
+		}
+
+		.animation-text {
+			font-size: 1.2rem;
+		}
+	}
+}
+
+@media (min-width: 720px) {
+	.heading {
+		font-size: 1.6rem;
+	}
+
+	.animations {
+		width: 70%;
+	}
+
+	.animation {
+		.animation-text {
+			font-size: 1.3rem;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.wrapper {
+		flex-direction: row;
+	}
+
+	.heading {
+		width: 40%;
+	}
+
+	.animations {
+		width: 60%;
+		border-radius: 80px;
+	}
+
+	.explore {
+		padding: 1rem 4rem;
+		font-size: 1.2rem;
+	}
+}
+
+@media (min-width: 992px) {
+	.heading {
+		width: 50%;
+	}
+
+	.animations {
+		width: 50%;
+		height: 60%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.wrapper {
+		justify-content: space-between;
+	}
+	.heading {
+		width: 35%;
+	}
+
+	.animations {
+		width: 50%;
+	}
+}

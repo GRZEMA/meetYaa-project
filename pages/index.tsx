@@ -5,8 +5,10 @@ import Head from 'next/head'
 export default function Home() {
 	return (
 		<>
-			{/* <Heading text='Featured Events!' /> */}
-			{/* <EventList /> */}
+			<section>
+				<Heading text='Featured Events!' id='featured' />
+				<EventList />
+			</section>
 		</>
 	)
 }

@@ -4,7 +4,36 @@
 	box-sizing: border-box;
 }
 
-body {
-	overflow: hidden;
-	max-width: 100vw;
+html {
+	scroll-behavior: smooth;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+section {
+	max-width: 1200px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.navigation-enter {
+	transform: translateX(100%);
+}
+.navigation-enter-active {
+	transform: translateX(0);
+	transition: transform 500ms;
+}
+.navigation-exit {
+	transform: translateX(0);
+}
+.navigation-exit-active {
+	transform: translateX(100%);
+	transition: transform 500ms;
 }

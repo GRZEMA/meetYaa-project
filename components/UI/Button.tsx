@@ -7,7 +7,6 @@ interface ButtonProps {
 }
 
 const Button = ({ text, onClick, customStyle }: ButtonProps): JSX.Element => {
-	console.log(customStyle)
 	return (
 		<button onClick={onClick} className={classes.button} style={customStyle}>
 			{text}
