@@ -1,7 +1,4 @@
 import Image from 'next/image'
-
-import Button from '../UI/Button'
-
 import classes from './EventItem.module.scss'
 
 interface EventItemProps {
@@ -23,12 +20,12 @@ const EventItem = ({
 				<Image src={eventImage} alt={eventName} fill />
 			</div>
 			<div className={classes['event-description']}>
-				<h3>{eventName}</h3>
+				<h3 className={classes.name}>{eventName}</h3>
 				<p>
-					<time>{eventDate}</time>
+					<time className={classes.date}>{eventDate}</time>
 				</p>
-				<p>{briefDescription}</p>
-				<Button text='More...' onClick={() => {}} />
+				<p className={classes.description}>{briefDescription}</p>
+				<button className={classes['more-btn']}>More...</button>
 			</div>
 		</div>
 	)

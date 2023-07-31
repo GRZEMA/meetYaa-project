@@ -58,19 +58,19 @@
 		justify-content: center;
 		align-items: center;
 		font-size: 0.8rem;
-		padding: 1rem;
+		margin: 1.5rem;
 	}
 }
 
 .explore {
 	position: absolute;
+	border: 1px solid #13315c;
 	padding: 0.75rem 3rem;
 	bottom: 2vh;
 	left: 50%;
 	transform: translateX(-50%);
-	border: none;
 	background-color: #8da9c4;
-	border-radius: 2rem;
+	border-radius: 18px;
 	transition: background-color 0.3s ease-in-out;
 	cursor: pointer;
 
