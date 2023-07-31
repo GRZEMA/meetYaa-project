@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import classes from './EventItem.module.scss'
+import Link from 'next/link'
 
 interface EventItemProps {
 	eventName: string
@@ -25,7 +26,9 @@ const EventItem = ({
 					<time className={classes.date}>{eventDate}</time>
 				</p>
 				<p className={classes.description}>{briefDescription}</p>
-				<button className={classes['more-btn']}>More...</button>
+				<button className={classes['more-btn']}>
+					<Link href={`/event/${'event-id-here'}`}>More</Link>
+				</button>
 			</div>
 		</div>
 	)
