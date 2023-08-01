@@ -1,0 +1,49 @@
+.auth-section {
+	background-color: #134074;
+	justify-content: center;
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
+
+.guyAnimation {
+	display: none;
+	position: absolute;
+	right: 0;
+	height: 250px;
+	width: 250px;
+}
+
+.formAnimation {
+	display: none;
+	position: absolute;
+	left: 0;
+	height: 300px;
+	width: 300px;
+	transform: rotate(15deg);
+}
+
+@media (min-width: 950px) {
+	.guyAnimation {
+		display: block;
+	}
+}
+
+@media (min-width: 1200px) {
+	.formAnimation {
+		display: block;
+	}
+}
+
+@media (min-width: 1400px) {
+	.formAnimation {
+		width: 350px;
+		height: 350px;
+		left: 4%;
+	}
+
+	.guyAnimation {
+		height: 400px;
+		width: 400px;
+	}
+}

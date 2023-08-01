@@ -30,7 +30,12 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 		<CSSTransition
 			nodeRef={navRef}
 			in={isOpen}
-			classNames='navigation'
+			classNames={{
+				enter: classes['navigation-enter'],
+				enterActive: classes['navigation-enter-active'],
+				exit: classes['navigation-exit'],
+				exitActive: classes['navigation-exit-active'],
+			}}
 			timeout={500}
 			unmountOnExit>
 			<nav className={`${classes.navigation} ${exo.className}`} ref={navRef}>

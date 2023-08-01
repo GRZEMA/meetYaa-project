@@ -3,13 +3,14 @@
 	top: 0;
 	right: 0;
 	left: 0;
-	max-width: 100%;
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: #134074;
 	height: 80px;
 	z-index: 999;
+	border-bottom: 1px solid rgb(141, 169, 196, 0.2);
 }
 
 .mobile-navbar {

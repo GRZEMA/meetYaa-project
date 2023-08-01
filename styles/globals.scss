@@ -20,25 +20,9 @@ body {
 }
 
 section {
-	max-width: 1200px;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 1rem;
-}
-
-.navigation-enter {
-	transform: translateX(100%);
-}
-.navigation-enter-active {
-	transform: translateX(0);
-	transition: transform 500ms;
-}
-.navigation-exit {
-	transform: translateX(0);
-}
-.navigation-exit-active {
-	transform: translateX(100%);
-	transition: transform 500ms;
 }
