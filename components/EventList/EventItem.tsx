@@ -26,9 +26,9 @@ const EventItem = ({
 					<time className={classes.date}>{eventDate}</time>
 				</p>
 				<p className={classes.description}>{briefDescription}</p>
-				<button className={classes['more-btn']}>
-					<Link href={`/event/${'event-id-here'}`}>More</Link>
-				</button>
+				<Link href={`/events/${'event-id-here'}`}>
+					<button className={classes['more-btn']}>More</button>
+				</Link>
 			</div>
 		</div>
 	)

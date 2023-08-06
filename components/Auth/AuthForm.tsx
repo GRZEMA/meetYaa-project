@@ -8,13 +8,17 @@ const exo = Exo({ subsets: ['latin-ext'] })
 const AuthForm = (): JSX.Element => {
 	const [login, setLogin] = useState(true)
 
+	const authHandler = (e: FormEvent) => {
+		e.preventDefault()
+	}
+
 	const formStateHandler = (e: FormEvent) => {
 		e.preventDefault()
 		setLogin((prevState) => !prevState)
 	}
 
 	return (
-		<form className={classes.form}>
+		<form className={classes.form} onSubmit={authHandler}>
 			<h3>{login ? 'Login' : 'Register'}</h3>
 			<hr />
 			<div className={classes.content}>
@@ -31,7 +35,7 @@ const AuthForm = (): JSX.Element => {
 					className={classes.input}
 				/>
 				<button className={classes.forgot}>Forgot Password?</button>
-				<button className={classes.confirm + ' ' + exo.className}>
+				<button className={classes.confirm + ' ' + exo.className} type='submit'>
 					{login ? 'Login' : 'Register'}
 				</button>
 				<div className={classes.member}>

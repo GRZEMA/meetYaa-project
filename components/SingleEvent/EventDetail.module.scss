@@ -1,0 +1,142 @@
+.details-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #0b2545;
+	width: 100%;
+	max-width: 500px;
+	padding: 1rem;
+}
+
+.heading {
+	padding: 2rem;
+	text-align: center;
+}
+
+.event-details-box {
+	background-color: #8da9c4;
+	padding: 1.5rem;
+	border-radius: 40px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.event-details-content {
+	width: 100%;
+}
+
+.signup {
+	margin: 1rem;
+	padding: 0.5rem 3rem;
+	border: none;
+	font-weight: bold;
+	color: #0b2545;
+	background-color: #8da9c4;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+
+	&:hover {
+		background-color: #64798c;
+	}
+}
+
+.nav {
+	width: 100%;
+	border-top-left-radius: 40px;
+	border-top-right-radius: 40px;
+	overflow: hidden;
+	ul {
+		display: flex;
+		list-style: none;
+		li {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			width: 50%;
+			text-align: center;
+			font-weight: bold;
+			padding: 1rem;
+			background-color: #134074;
+			color: #eef4ed;
+			transition: background-color 0.3s ease-in-out;
+
+			&:hover {
+				background-color: #0b2545;
+			}
+		}
+
+		.active {
+			color: #0b2545;
+			background-color: #8da9c4;
+
+			&:hover {
+				background-color: #8da9c4;
+			}
+		}
+	}
+}
+
+@media (min-width: 576px) {
+	.heading {
+		h1 {
+			font-size: 1.7rem;
+		}
+	}
+
+	.nav {
+		li {
+			font-size: 1.2rem;
+		}
+	}
+
+	.event-details-content {
+		font-size: 1.1rem;
+	}
+
+	.signup {
+		font-size: 1.2rem;
+		padding: 0.75rem 3.5rem;
+		border-radius: 50px;
+	}
+}
+
+@media (min-width: 768px) {
+	.details-container {
+		align-self: flex-start;
+		width: 60%;
+	}
+
+	.event-details-content {
+		min-height: 200px;
+	}
+}
+
+@media (min-width: 992px) {
+	.heading {
+		h1 {
+			font-size: 2rem;
+		}
+	}
+
+	.nav {
+		li {
+			font-size: 1.4rem;
+		}
+	}
+
+	.event-details-content {
+		font-size: 1.2rem;
+	}
+
+	.signup {
+		font-size: 1.4rem;
+		padding: 0.75rem 4rem;
+		border-radius: 50px;
+	}
+}
