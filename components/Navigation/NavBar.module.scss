@@ -48,13 +48,30 @@
 	.list {
 		list-style: none;
 		display: flex;
+		align-items: center;
 	}
 
 	.link {
 		text-decoration: none;
 		color: #eef4ed;
-		padding: 1em;
+		padding: 1rem;
+		font-size: 1rem;
 		transition: color 0.3s ease-in-out;
+	}
+
+	.logout {
+		background: #8da9c4;
+		padding: 1rem;
+		border: none;
+		color: #eef4ed;
+		border-radius: 50px;
+		cursor: pointer;
+		font-size: 1rem;
+		transition: background-color 0.3s ease-in-out;
+
+		&:hover {
+			background-color: #64798c;
+		}
 	}
 
 	.link:hover {

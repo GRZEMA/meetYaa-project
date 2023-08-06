@@ -1,3 +1,6 @@
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
+
 import { Exo } from 'next/font/google'
 import Link from 'next/link'
 
@@ -13,6 +16,12 @@ interface NavBarProps {
 }
 
 const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
+	const { status } = useSession()
+
+	const logoutHandler = () => {
+		signOut({ redirect: false })
+	}
+
 	return (
 		<nav className={classes.navbar + ' ' + exo.className}>
 			<div className={classes['mobile-navbar']}>
@@ -22,7 +31,13 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 			<div className={classes['desktop-navbar']}>
 				<Logo />
 				<ul className={classes.list}>
-					{/* {conditional links based on auth} */}
+					{status === 'authenticated' && (
+						<li>
+							<Link href='/my-profile' className={classes.link}>
+								My Profile
+							</Link>
+						</li>
+					)}
 					<li>
 						<Link href='/' className={classes.link}>
 							Home
@@ -34,9 +49,15 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 						</Link>
 					</li>
 					<li>
-						<Link href='/auth' className={classes.link}>
-							Sign In / Sign Up
-						</Link>
+						{status !== 'authenticated' ? (
+							<Link href='/auth' className={classes.link}>
+								Sign In / Sign Up
+							</Link>
+						) : (
+							<button className={classes.logout} onClick={logoutHandler}>
+								Logout
+							</button>
+						)}
 					</li>
 				</ul>
 			</div>
