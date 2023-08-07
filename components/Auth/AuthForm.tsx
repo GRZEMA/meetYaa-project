@@ -1,8 +1,8 @@
 import { FormEvent, useState, useRef } from 'react'
-import { signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/react'
 
-import { validateLoginForm } from '@/helpers/form-validator-helper'
-import { registerHandler } from '@/helpers/register-helper'
+import { validateLoginForm } from '@/helpers/login-validator'
+import { registerHandler } from '@/helpers/register'
 
 import classes from './AuthForm.module.scss'
 
@@ -18,6 +18,14 @@ const AuthForm = (): JSX.Element => {
 
 	const authHandler = async (e: FormEvent) => {
 		e.preventDefault()
+
+		const session = await getSession()
+		if (session) {
+			// Modal that says you are already logged in
+			console.log('Already logged in.')
+			return
+		}
+
 		const username = usernameRef.current!.value
 		const password = passwordRef.current!.value
 
@@ -68,6 +76,7 @@ const AuthForm = (): JSX.Element => {
 					id='username'
 					className={classes.input}
 					ref={usernameRef}
+					required
 				/>
 				<input
 					type='password'
@@ -75,6 +84,7 @@ const AuthForm = (): JSX.Element => {
 					id='password'
 					className={classes.input}
 					ref={passwordRef}
+					required
 				/>
 				<button className={classes.forgot}>Forgot Password?</button>
 				<button className={classes.confirm + ' ' + exo.className} type='submit'>

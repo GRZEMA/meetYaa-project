@@ -1,5 +1,5 @@
 import { compare } from 'bcryptjs'
-import { connectToMongoDB } from '@/helpers/db-helpers'
+import { connectToMongoDB } from '@/helpers/db'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -13,7 +13,7 @@ export default NextAuth({
 			name: 'credentials',
 			id: 'credentials',
 			credentials: undefined!,
-			async authorize(credentials) {
+			async authorize(credentials, req) {
 				try {
 					const { username, password } = credentials!
 

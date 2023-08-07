@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { MouseEventHandler, useRef, useState } from 'react'
+import { useRef } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 
 import { Exo } from 'next/font/google'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,6 +27,8 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 		}
 	}
 
+	const { status } = useSession()
+
 	return (
 		<CSSTransition
 			nodeRef={navRef}
@@ -44,9 +47,17 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 				</button>
 				<ul className={classes.list} onClick={hideNavHandler}>
 					<li>
-						<Link href='/auth' className={classes.signin}>
-							Sign In / Sign Up
-						</Link>
+						{status === 'authenticated' ? (
+							<button
+								className={`logout ${classes.signin}`}
+								onClick={() => signOut({ redirect: false })}>
+								Logout
+							</button>
+						) : (
+							<Link href='/auth' className={classes.signin}>
+								Sign In / Sign Up
+							</Link>
+						)}
 					</li>
 					<li>
 						<Link href='/' className={classes.link}>

@@ -1,0 +1,38 @@
+.create-section {
+	margin-top: 40px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	max-width: 1400px;
+}
+
+.animation-one,
+.animation-two {
+	position: relative;
+	width: 100px;
+	height: 100px;
+	display: none;
+}
+
+.animation-one {
+	transform: rotate(-25deg);
+}
+
+.animation-two {
+	transform: rotate(25deg);
+}
+
+@media (min-width: 992px) {
+	.animation-one,
+	.animation-two {
+		display: block;
+		width: 300px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.animation-one,
+	.animation-two {
+		width: 500px;
+	}
+}

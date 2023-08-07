@@ -1,11 +1,8 @@
-import { connectToMongoDB } from '@/helpers/db-helpers'
+import { connectToMongoDB } from '@/helpers/db'
 import { encryptPassword } from '@/helpers/auth-helpers'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-const handler: NextApiHandler = async (
-	req: NextApiRequest,
-	res: NextApiResponse
-) => {
+const handler: NextApiHandler = async (req, res) => {
 	const client = await connectToMongoDB()
 	const db = client.db('auth')
 

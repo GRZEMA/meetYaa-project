@@ -18,10 +18,6 @@ interface NavBarProps {
 const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 	const { status } = useSession()
 
-	const logoutHandler = () => {
-		signOut({ redirect: false })
-	}
-
 	return (
 		<nav className={classes.navbar + ' ' + exo.className}>
 			<div className={classes['mobile-navbar']}>
@@ -54,7 +50,9 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 								Sign In / Sign Up
 							</Link>
 						) : (
-							<button className={classes.logout} onClick={logoutHandler}>
+							<button
+								className='logout'
+								onClick={() => signOut({ redirect: false })}>
 								Logout
 							</button>
 						)}
