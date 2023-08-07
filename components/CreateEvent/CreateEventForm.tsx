@@ -6,6 +6,7 @@ import classes from './CreateEventForm.module.scss'
 import { Exo } from 'next/font/google'
 import { validateEventForm } from '@/helpers/event-form-validator'
 import { createEvent } from '@/helpers/create-event'
+import { getSession } from 'next-auth/react'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
@@ -19,6 +20,15 @@ const CreateEventForm = (): JSX.Element => {
 
 	const formSubmissionHandler = async (e: FormEvent) => {
 		e.preventDefault()
+
+		const session = await getSession()
+
+		if (!session) {
+			console.log('You need to be logged in to create an event!')
+			return
+		}
+		const username = session!.user!.name!
+
 		const title = titleRef.current!.value
 		const location = locationRef.current!.value
 		const date = dateRef.current!.value
@@ -47,6 +57,7 @@ const CreateEventForm = (): JSX.Element => {
 			time,
 			image,
 			description,
+			username,
 		})
 
 		console.log(res)

@@ -2,12 +2,23 @@ import Image from 'next/image'
 
 import classes from './EventLocation.module.scss'
 
-const EventLocation = (): JSX.Element => {
-	const address = 'Warszawa, ul. Okopowa 55'
+interface EventLocationProps {
+	location: string
+	image: string
+	briefDescription: string
+}
+
+const EventLocation = ({
+	location,
+	image,
+	briefDescription,
+}: EventLocationProps): JSX.Element => {
+	const address = location
+
 	return (
 		<div className={classes['location-box']}>
 			<div className={classes['image-box']}>
-				<Image src='/images/ok.webp' alt='Image brief description' fill />
+				<Image src={image} alt={briefDescription} fill />
 			</div>
 			<div className={classes['map-box']}>
 				<iframe
@@ -18,8 +29,7 @@ const EventLocation = (): JSX.Element => {
 						top: '0',
 						width: '100%',
 						height: '100%',
-					}}
-					loading='lazy'></iframe>
+					}}></iframe>
 			</div>
 		</div>
 	)

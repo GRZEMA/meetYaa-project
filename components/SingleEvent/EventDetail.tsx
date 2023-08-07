@@ -5,7 +5,21 @@ import { Exo } from 'next/font/google'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
-const EventDetail = (): JSX.Element => {
+interface EventDetailProps {
+	title: string
+	description: string
+	date: string
+	ticketPrice: number
+	location: string
+}
+
+const EventDetail = ({
+	title,
+	description,
+	date,
+	location,
+	ticketPrice,
+}: EventDetailProps): JSX.Element => {
 	const [detailsActive, setDetailsActive] = useState(true)
 
 	const setDetailsActiveHandler = () => {
@@ -19,8 +33,9 @@ const EventDetail = (): JSX.Element => {
 	return (
 		<div className={classes['details-container']}>
 			<div className={classes.heading}>
-				<h1>EVENT NAME</h1>
-				<p>EVENT DATE</p>
+				<h1>{title}</h1>
+				<p>{date}</p>
+				<p>Address: {location}</p>
 			</div>
 			<nav className={classes.nav}>
 				<ul>
@@ -38,17 +53,7 @@ const EventDetail = (): JSX.Element => {
 			</nav>
 			<div className={classes['event-details-box']}>
 				<div className={classes['event-details-content']}>
-					{detailsActive ? (
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-							cupiditate voluptatem corrupti excepturi, sunt doloribus dolore
-							nobis dolores sint a, eum nisi tempora iure hic optio autem modi
-							aliquid cumque quidem et rerum illo rem accusantium. Adipisci
-							blanditiis ipsam delectus.
-						</p>
-					) : (
-						<p>ORGANIZER INFO</p>
-					)}
+					{detailsActive ? <p>{description}</p> : <p>ORGANIZER INFO</p>}
 				</div>
 			</div>
 			<button className={classes.signup + ' ' + exo.className}>Sign up!</button>

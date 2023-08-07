@@ -1,3 +1,4 @@
+import { EventModel } from '@/types/EventModel'
 import EventItem from './EventItem'
 
 import classes from './EventList.module.scss'
@@ -11,7 +12,8 @@ const DUMMY_EVENTS = [
 			'engineer occasionally object clay social before tip forty blew knife know want whose fear oldest cage tower back single slide swim moving noted stranger',
 		location: 'Somestreet 25, 12345 San Somewhereo',
 		date: '2021-05-12',
-		image: '/images/ok.webp',
+		image:
+			'https://cdn.pixabay.com/photo/2015/11/22/19/04/crowd-1056764_1280.jpg',
 	},
 	{
 		id: 'e2',
@@ -45,16 +47,21 @@ const DUMMY_EVENTS = [
 	},
 ]
 
-const EventList = (): JSX.Element => {
+interface EventListProps {
+	events: EventModel[]
+}
+
+const EventList = ({ events }: EventListProps): JSX.Element => {
 	return (
 		<ul className={classes.events}>
-			{DUMMY_EVENTS.map((event) => (
+			{events.map((event) => (
 				<EventItem
 					eventName={event.title}
 					briefDescription={event.briefDescription}
 					eventDate={event.date}
 					eventImage={event.image}
-					key={event.id}
+					key={event._id}
+					eventId={event._id}
 				/>
 			))}
 		</ul>

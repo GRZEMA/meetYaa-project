@@ -27,13 +27,6 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 			<div className={classes['desktop-navbar']}>
 				<Logo />
 				<ul className={classes.list}>
-					{status === 'authenticated' && (
-						<li>
-							<Link href='/my-profile' className={classes.link}>
-								My Profile
-							</Link>
-						</li>
-					)}
 					<li>
 						<Link href='/' className={classes.link}>
 							Home
@@ -44,6 +37,13 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 							All Events
 						</Link>
 					</li>
+					{status === 'authenticated' && (
+						<li>
+							<Link href='/my-profile' className={classes.link}>
+								My Profile
+							</Link>
+						</li>
+					)}
 					<li>
 						{status !== 'authenticated' ? (
 							<Link href='/auth' className={classes.link}>

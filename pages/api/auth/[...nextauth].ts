@@ -39,9 +39,7 @@ export default NextAuth({
 
 					client.close()
 
-					return {
-						username: userCredentials.userName,
-					} as any
+					return { name: userCredentials.userName } as any
 				} catch {
 					return null
 				}

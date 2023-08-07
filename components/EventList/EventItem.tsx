@@ -3,6 +3,7 @@ import classes from './EventItem.module.scss'
 import Link from 'next/link'
 
 interface EventItemProps {
+	eventId: string
 	eventName: string
 	eventDate: string
 	eventImage: string
@@ -10,6 +11,7 @@ interface EventItemProps {
 }
 
 const EventItem = ({
+	eventId,
 	eventName,
 	eventDate,
 	eventImage,
@@ -18,7 +20,7 @@ const EventItem = ({
 	return (
 		<div className={classes.event}>
 			<div className={classes['event-image']}>
-				<Image src={eventImage} alt={eventName} fill />
+				<Image src={eventImage} alt={eventName} fill objectFit='cover' />
 			</div>
 			<div className={classes['event-description']}>
 				<h3 className={classes.name}>{eventName}</h3>
@@ -26,7 +28,7 @@ const EventItem = ({
 					<time className={classes.date}>{eventDate}</time>
 				</p>
 				<p className={classes.description}>{briefDescription}</p>
-				<Link href={`/events/${'event-id-here'}`}>
+				<Link href={`/events/${eventId}`}>
 					<button className={classes['more-btn']}>More</button>
 				</Link>
 			</div>

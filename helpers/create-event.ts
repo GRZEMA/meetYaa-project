@@ -7,6 +7,7 @@ export const createEvent = async ({
 	time,
 	image,
 	description,
+	username,
 }: {
 	title: string
 	location: string
@@ -14,6 +15,7 @@ export const createEvent = async ({
 	time: string
 	image: string
 	description: string
+	username: string
 }) => {
 	const res = axios
 		.post('/api/events/create', {
@@ -23,6 +25,7 @@ export const createEvent = async ({
 			time,
 			image,
 			description,
+			username,
 		})
 		.then((res) => res)
 		.catch((err) => err)

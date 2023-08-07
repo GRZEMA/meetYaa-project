@@ -6,10 +6,16 @@ const handler: NextApiHandler = async (req, res) => {
 		const client = await connectToMongoDB()
 		const db = client.db('auth')
 
-		const { title, location, date, time, description, username } = req.body
+		const { title, location, date, time, description, username, image } =
+			req.body
 
 		if (!title || !location || !date || !description || !time) {
 			res.status(422).json({ message: 'Invalid input.' })
+			return
+		}
+
+		if (!username) {
+			res.status(422).json({ message: 'Invalid user.' })
 			return
 		}
 
@@ -18,6 +24,7 @@ const handler: NextApiHandler = async (req, res) => {
 			location,
 			date,
 			time,
+			image,
 			description,
 		}
 

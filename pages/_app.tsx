@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 
 import { SessionProvider } from 'next-auth/react'
 
+import NextNProgress from 'nextjs-progressbar'
+
 import '@/styles/globals.scss'
 
 import Head from 'next/head'
@@ -26,6 +28,7 @@ export default function App({
 				<title>meetYAA Events</title>
 			</Head>
 			<Navigation />
+			<NextNProgress />
 			{asPath === '/' && <Header />}
 			<main className={exo.className}>
 				<Component {...pageProps} />
