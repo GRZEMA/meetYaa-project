@@ -29,5 +29,6 @@ export const getStaticProps: GetStaticProps<{
 		props: {
 			events: events,
 		},
+		revalidate: 600,
 	}
 }

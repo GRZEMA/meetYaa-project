@@ -16,6 +16,8 @@ const CreateEventForm = (): JSX.Element => {
 	const dateRef = useRef<HTMLInputElement>(null)
 	const timeRef = useRef<HTMLInputElement>(null)
 	const imageRef = useRef<HTMLInputElement>(null)
+	const briefDescRef = useRef<HTMLInputElement>(null)
+	const priceRef = useRef<HTMLInputElement>(null)
 	const descriptionRef = useRef<HTMLTextAreaElement>(null)
 
 	const formSubmissionHandler = async (e: FormEvent) => {
@@ -35,6 +37,8 @@ const CreateEventForm = (): JSX.Element => {
 		const time = timeRef.current!.value
 		const image = imageRef.current!.value
 		const description = descriptionRef.current!.value
+		const briefDescription = briefDescRef.current!.value
+		const ticketPrice = priceRef.current!.value
 
 		const errors = validateEventForm({
 			title,
@@ -43,6 +47,7 @@ const CreateEventForm = (): JSX.Element => {
 			time,
 			image,
 			description,
+			briefDescription,
 		})
 
 		if (errors.length > 0) {
@@ -57,10 +62,19 @@ const CreateEventForm = (): JSX.Element => {
 			time,
 			image,
 			description,
+			briefDescription,
 			username,
+			ticketPrice: Number(ticketPrice),
 		})
 
-		console.log(res)
+		titleRef.current!.value = ''
+		locationRef.current!.value = ''
+		dateRef.current!.value = ''
+		timeRef.current!.value = ''
+		imageRef.current!.value = ''
+		descriptionRef.current!.value = ''
+		briefDescRef.current!.value = ''
+		priceRef.current!.value = ''
 	}
 
 	return (
@@ -81,14 +95,44 @@ const CreateEventForm = (): JSX.Element => {
 					required
 					ref={locationRef}
 				/>
-				<input type='date' className={exo.className} required ref={dateRef} />
-				<input type='time' className={exo.className} required ref={timeRef} />
 				<input
-					type='text'
+					type='date'
+					className={exo.className}
+					required
+					ref={dateRef}
+					onChange={() => {
+						dateRef.current?.style.setProperty('color', '#0b2545')
+					}}
+				/>
+				<input
+					type='time'
+					className={exo.className}
+					required
+					ref={timeRef}
+					onChange={() => {
+						timeRef.current?.style.setProperty('color', '#0b2545')
+					}}
+				/>
+				<input
+					type='url'
 					placeholder='Link to Image'
 					className={exo.className}
 					required
 					ref={imageRef}
+				/>
+				<input
+					type='text'
+					placeholder='Brief description'
+					className={exo.className}
+					required
+					ref={briefDescRef}
+				/>
+				<input
+					type='number'
+					placeholder='Ticket price (0 if free)'
+					className={exo.className}
+					required
+					ref={priceRef}
 				/>
 				<textarea
 					placeholder='Event Description'

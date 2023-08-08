@@ -1,0 +1,44 @@
+.input-box {
+	margin-bottom: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 700px;
+	width: 80%;
+
+	input {
+		width: 100%;
+		border: none;
+		padding: 0.25rem;
+		background: none;
+		outline: none;
+		color: #0b2545;
+		border-bottom: 3px solid #8da9c4;
+
+		&::placeholder {
+			color: #aaa;
+		}
+
+		&:focus {
+			border-color: #0b2545;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.input-box {
+		input {
+			border-width: 5px;
+			font-size: 1rem;
+		}
+	}
+}
+
+@media (min-width: 992px) {
+	.input-box {
+		input {
+			font-size: 1.2rem;
+		}
+	}
+}

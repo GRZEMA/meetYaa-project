@@ -8,6 +8,11 @@
 	background-color: #eef4ed;
 	margin-bottom: 2rem;
 	box-shadow: 0px 0px 15px #8da9c4;
+	transition: transform 0.3s ease-in-out;
+
+	&:hover {
+		transform: scale(1.02);
+	}
 }
 
 .event-description {
@@ -31,7 +36,6 @@
 
 .description {
 	font-size: 0.9rem;
-	padding: 1rem;
 	color: #13315c;
 	text-align: center;
 }

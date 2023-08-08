@@ -18,11 +18,12 @@ const EventLocation = ({
 	return (
 		<div className={classes['location-box']}>
 			<div className={classes['image-box']}>
-				<Image src={image} alt={briefDescription} fill />
+				<Image src={image} alt={briefDescription} fill sizes='100%' />
 			</div>
 			<div className={classes['map-box']}>
 				<iframe
 					src={`https://maps.google.com/maps?&q="+${address}"&output=embed`}
+					loading='lazy'
 					style={{
 						border: '0',
 						position: 'absolute',

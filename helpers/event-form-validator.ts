@@ -4,6 +4,7 @@ export const validateEventForm = ({
 	date,
 	time,
 	image,
+	briefDescription,
 	description,
 }: {
 	title: string
@@ -11,6 +12,7 @@ export const validateEventForm = ({
 	date: string
 	time: string
 	image: string
+	briefDescription: string
 	description: string
 }) => {
 	const errors = []
@@ -48,6 +50,12 @@ export const validateEventForm = ({
 	if (image.trim() === '') {
 		errors.push({
 			message: 'Image is required!',
+		})
+	}
+
+	if (briefDescription.trim() === '') {
+		errors.push({
+			message: 'Brief description is required!',
 		})
 	}
 

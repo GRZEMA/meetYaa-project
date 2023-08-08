@@ -20,7 +20,13 @@ const EventItem = ({
 	return (
 		<div className={classes.event}>
 			<div className={classes['event-image']}>
-				<Image src={eventImage} alt={eventName} fill objectFit='cover' />
+				<Image
+					src={eventImage}
+					alt={eventName}
+					fill
+					sizes='100%'
+					style={{ objectFit: 'cover' }}
+				/>
 			</div>
 			<div className={classes['event-description']}>
 				<h3 className={classes.name}>{eventName}</h3>

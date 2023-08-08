@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+
 import classes from './EventDetail.module.scss'
 
 import { Exo } from 'next/font/google'
@@ -21,6 +24,8 @@ const EventDetail = ({
 	ticketPrice,
 }: EventDetailProps): JSX.Element => {
 	const [detailsActive, setDetailsActive] = useState(true)
+	const router = useRouter()
+	const session = useSession()
 
 	const setDetailsActiveHandler = () => {
 		setDetailsActive(true)
@@ -28,6 +33,14 @@ const EventDetail = ({
 
 	const setDetailsNotActiveHandler = () => {
 		setDetailsActive(false)
+	}
+
+	const signUpHandler = () => {
+		if (session.status === 'unauthenticated') {
+			router.push('/auth')
+		}
+
+		// signup for event logic
 	}
 
 	return (
@@ -53,10 +66,23 @@ const EventDetail = ({
 			</nav>
 			<div className={classes['event-details-box']}>
 				<div className={classes['event-details-content']}>
-					{detailsActive ? <p>{description}</p> : <p>ORGANIZER INFO</p>}
+					{detailsActive ? (
+						<>
+							<p>{description}</p>
+							<p className={classes.ticket}>
+								Ticket price: {ticketPrice === 0 ? 'FREE' : ticketPrice + '$'}
+							</p>
+						</>
+					) : (
+						<p>ORGANIZER INFO</p>
+					)}
 				</div>
 			</div>
-			<button className={classes.signup + ' ' + exo.className}>Sign up!</button>
+			<button
+				className={classes.signup + ' ' + exo.className}
+				onClick={signUpHandler}>
+				Sign up!
+			</button>
 		</div>
 	)
 }

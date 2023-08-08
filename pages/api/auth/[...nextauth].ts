@@ -2,8 +2,10 @@ import { compare } from 'bcryptjs'
 import { connectToMongoDB } from '@/helpers/db'
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { NextAuthOptions } from 'next-auth'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
+	secret: process.env.NEXTAUTH_SECRET as string,
 	session: {
 		strategy: 'jwt',
 		maxAge: 60 * 60,
@@ -46,4 +48,6 @@ export default NextAuth({
 			},
 		}),
 	],
-})
+}
+
+export default NextAuth(authOptions)
