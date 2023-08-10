@@ -26,6 +26,7 @@ const EventItem = ({
 					fill
 					sizes='100%'
 					style={{ objectFit: 'cover' }}
+					loading='lazy'
 				/>
 			</div>
 			<div className={classes['event-description']}>

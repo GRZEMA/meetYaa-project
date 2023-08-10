@@ -4,6 +4,12 @@
 	width: 100%;
 }
 
+.not-found {
+	text-align: center;
+	color: #0b2545;
+	margin-bottom: 2rem;
+}
+
 @media (min-width: 768px) {
 	.events {
 		max-width: calc(700px + (0.4 * 700px));
