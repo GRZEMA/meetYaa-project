@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+
+import { PaymentContext } from '@/store/payment-context'
 
 import classes from './EventDetail.module.scss'
 
 import { Exo } from 'next/font/google'
-
 const exo = Exo({ subsets: ['latin-ext'] })
 
 interface EventDetailProps {
@@ -14,6 +15,8 @@ interface EventDetailProps {
 	date: string
 	ticketPrice: number
 	location: string
+	id: string
+	userData: any
 }
 
 const EventDetail = ({
@@ -22,10 +25,15 @@ const EventDetail = ({
 	date,
 	location,
 	ticketPrice,
+	id,
+	userData,
 }: EventDetailProps): JSX.Element => {
 	const [detailsActive, setDetailsActive] = useState(true)
+	const [userSigned, setUserSigned] = useState(false)
+
 	const router = useRouter()
 	const session = useSession()
+	const paymentCtx = useContext(PaymentContext)
 
 	const setDetailsActiveHandler = () => {
 		setDetailsActive(true)
@@ -35,13 +43,25 @@ const EventDetail = ({
 		setDetailsActive(false)
 	}
 
-	const signUpHandler = () => {
+	const signUpHandler = async () => {
 		if (session.status === 'unauthenticated') {
 			router.push('/auth')
+			return
 		}
 
 		// signup for event logic
+
+		paymentCtx.updateUsername(session.data!.user!.name!)
+		paymentCtx.updateEventId(id)
+
+		router.push('/dummy-pay')
 	}
+
+	useEffect(() => {
+		if (userData?.signedEvents.some((eventId: string) => eventId === id)) {
+			setUserSigned(true)
+		}
+	}, [userData, id])
 
 	return (
 		<div className={classes['details-container']}>
@@ -80,8 +100,9 @@ const EventDetail = ({
 			</div>
 			<button
 				className={classes.signup + ' ' + exo.className}
-				onClick={signUpHandler}>
-				Sign up!
+				onClick={userSigned ? undefined : signUpHandler}
+				disabled={userSigned}>
+				{userSigned ? 'Already signed up' : 'Sign up'}
 			</button>
 		</div>
 	)

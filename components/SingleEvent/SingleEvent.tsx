@@ -7,9 +7,10 @@ import classes from './SingleEvent.module.scss'
 
 interface SingleEventProps {
 	event: EventModel
+	userData: any
 }
 
-const SingleEvent = ({ event }: SingleEventProps): JSX.Element => {
+const SingleEvent = ({ event, userData }: SingleEventProps): JSX.Element => {
 	return (
 		<section className={classes['event-box']}>
 			<EventLocation
@@ -18,11 +19,13 @@ const SingleEvent = ({ event }: SingleEventProps): JSX.Element => {
 				briefDescription={event.briefDescription}
 			/>
 			<EventDetail
+				id={event._id}
 				title={event.title}
 				description={event.description}
 				date={event.date}
 				location={event.location}
 				ticketPrice={event.ticketPrice}
+				userData={userData}
 			/>
 		</section>
 	)

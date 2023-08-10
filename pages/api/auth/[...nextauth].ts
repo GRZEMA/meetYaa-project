@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
 			name: 'credentials',
 			id: 'credentials',
 			credentials: undefined!,
-			async authorize(credentials, req) {
+			async authorize(credentials) {
 				try {
 					const { username, password } = credentials!
 

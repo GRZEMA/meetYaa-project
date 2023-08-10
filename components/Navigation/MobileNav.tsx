@@ -69,7 +69,13 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 							All Events
 						</Link>
 					</li>
-					{/* {conditional links based on auth} */}
+					{status === 'authenticated' && (
+						<li>
+							<Link href='/my-profile' className={classes.link}>
+								My Profile
+							</Link>
+						</li>
+					)}
 				</ul>
 			</nav>
 		</CSSTransition>

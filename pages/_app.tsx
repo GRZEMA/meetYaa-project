@@ -9,11 +9,13 @@ import '@/styles/globals.scss'
 
 import Head from 'next/head'
 
-import { Exo } from 'next/font/google'
+import PaymentContextProvider from '@/store/payment-context'
+
 import Navigation from '@/components/Navigation/Navigation'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 
+import { Exo } from 'next/font/google'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 export default function App({
@@ -24,16 +26,18 @@ export default function App({
 
 	return (
 		<SessionProvider session={session}>
-			<Head>
-				<title>meetYAA Events</title>
-			</Head>
-			<Navigation />
-			<NextNProgress />
-			{asPath === '/' && <Header />}
-			<main className={exo.className}>
-				<Component {...pageProps} />
-			</main>
-			<Footer />
+			<PaymentContextProvider>
+				<Head>
+					<title>meetYAA Events</title>
+				</Head>
+				<Navigation />
+				<NextNProgress />
+				{asPath === '/' && <Header />}
+				<main className={exo.className}>
+					<Component {...pageProps} />
+				</main>
+				<Footer />
+			</PaymentContextProvider>
 		</SessionProvider>
 	)
 }
