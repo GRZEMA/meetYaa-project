@@ -1,17 +1,27 @@
 import { EventModel } from '@/types/EventModel'
 import classes from './UserEvents.module.scss'
+import { useState } from 'react'
+import EventsList from './EventsList'
 
 interface UserEventsProps {
 	events: EventModel[]
 }
 
 const UserEvents = ({ events }: UserEventsProps) => {
+	const [isShowMore, setIsShowMore] = useState(false)
+
 	return (
-		<div>
+		<div className={classes.events}>
 			<h2>My Events</h2>
-			<ul>{/*dynamic event list here*/}</ul>
+			<EventsList events={events} isShowMore={isShowMore} />
 			{events.length > 1 && (
-				<button className={classes['more-btn']}>Show more</button>
+				<button
+					className={classes['more-btn']}
+					onClick={() => {
+						setIsShowMore((prev) => !prev)
+					}}>
+					{isShowMore ? 'Show less' : 'Show more'}
+				</button>
 			)}
 		</div>
 	)

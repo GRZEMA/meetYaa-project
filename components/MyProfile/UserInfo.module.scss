@@ -1,0 +1,35 @@
+.info-box {
+	background-color: #eef4ed;
+	border-radius: 30px;
+	padding: 2rem;
+	width: 100%;
+	max-width: 500px;
+	text-align: center;
+	color: #0b2545;
+
+	h2 {
+		padding: 2rem;
+		font-size: 2rem;
+	}
+
+	.change-btn {
+		color: #134074;
+		font-size: 1.2rem;
+		font-weight: bold;
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+
+	p {
+		font-size: 1.2rem;
+	}
+}
+
+.image {
+	position: relative;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 0 auto;
+}

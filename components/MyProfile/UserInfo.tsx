@@ -1,39 +1,43 @@
 import Image from 'next/image'
 
 import classes from './UserInfo.module.scss'
-import { useEffect, useState } from 'react'
+import { Exo } from 'next/font/google'
+import { UserModel } from '@/types/UserModel'
+
+const exo = Exo({ subsets: ['latin-ext'] })
 
 interface UserInfoProps {
-	email: string
-	username: string
+	userInfo: UserModel
 }
 
-const UserInfo = ({ email, username }: UserInfoProps): JSX.Element => {
-	const [userName, setUserName] = useState('')
-	const [userEmail, setUserEmail] = useState('')
+const UserInfo = ({ userInfo }: UserInfoProps): JSX.Element => {
+	const { userName, email, profilePicture } = userInfo
 
-	useEffect(() => {
-		setUserName(username)
-		email ? setUserEmail(email) : null
-	}, [username, email])
+	const profilePictureUrl = profilePicture
+		? profilePicture
+		: '/images/defaultUser.png'
 
 	return (
 		<div className={classes['info-box']}>
 			<div className={classes.image}>
-				<Image alt='' src='/' />
+				<Image alt='' src={profilePictureUrl} fill />
 			</div>
 			<div className={classes['user-info']}>
-				<h2>{userName}</h2>
+				<h2>{userName.toUpperCase()}</h2>
 				<p>
-					Contact Email: {userEmail ? userEmail : 'not set'} -
+					Contact Email: {email ? email : 'not set'} -{' '}
 					<span>
-						<button className={classes['change-btn']}>Change Email</button>
+						<button className={classes['change-btn'] + ' ' + exo.className}>
+							Change
+						</button>
 					</span>
 				</p>
 				<p>
-					Password -
+					Password -{' '}
 					<span>
-						<button className={classes['change-btn']}>Change Password</button>
+						<button className={classes['change-btn'] + ' ' + exo.className}>
+							Change
+						</button>
 					</span>
 				</p>
 			</div>

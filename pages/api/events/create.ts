@@ -67,7 +67,7 @@ const handler: NextApiHandler = async (req, res) => {
 			.collection('users')
 			.updateOne(
 				{ userName: username },
-				{ $push: { ownedEvents: response?._id } }
+				{ $push: { ownedEvents: response?._id.toString() } }
 			)
 
 		res.status(201).json({ message: 'Event created.', event: newEvent })

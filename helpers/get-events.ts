@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { connectToMongoDB } from './db'
 
-const transformEvents = (events: any[]) => {
+export const transformEvents = (events: any[]) => {
 	const newEvents = events.map((event) => {
 		return { ...event, _id: event._id.toString() }
 	})

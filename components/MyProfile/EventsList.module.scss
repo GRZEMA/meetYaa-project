@@ -1,0 +1,39 @@
+.image {
+	position: relative;
+	width: 30%;
+	aspect-ratio: 1.2/1;
+	border-radius: 10px;
+	overflow: hidden;
+	align-self: center;
+}
+
+.error {
+	text-align: center;
+}
+
+.list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+
+	li {
+		width: 100%;
+		padding: 1rem;
+		display: flex;
+		background-color: #8da9c4;
+		border-radius: 20px;
+		transition: transform 0.3s ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			transform: scale(1.01);
+		}
+	}
+
+	.info {
+		width: 70%;
+		margin-left: 0.5rem;
+	}
+}

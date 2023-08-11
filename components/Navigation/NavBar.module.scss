@@ -26,7 +26,6 @@
 }
 
 .desktop-navbar {
-	max-width: 80%;
 	display: none;
 	justify-content: space-between;
 	align-items: center;
@@ -43,6 +42,7 @@
 
 	.desktop-navbar {
 		display: flex;
+		max-width: 95%;
 	}
 
 	.list {
@@ -61,5 +61,11 @@
 
 	.link:hover {
 		color: #8da9c4;
+	}
+}
+
+@media (min-width: 992px) {
+	.desktop-navbar {
+		max-width: 80%;
 	}
 }

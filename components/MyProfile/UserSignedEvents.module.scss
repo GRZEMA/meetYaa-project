@@ -1,0 +1,30 @@
+.events {
+	background-color: #eef4ed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+	border-radius: 30px;
+
+	h2 {
+		text-align: center;
+		padding: 0 0 2rem;
+	}
+
+	button {
+		padding: 0.5rem 2rem;
+		margin-top: 2rem;
+		border-radius: 40px;
+		border: none;
+		background-color: #8da9c4;
+		font-weight: bold;
+		font-size: 1rem;
+		transition: background-color 0.3s ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #64798c;
+		}
+	}
+}

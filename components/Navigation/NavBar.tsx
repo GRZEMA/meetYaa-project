@@ -38,11 +38,18 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 						</Link>
 					</li>
 					{status === 'authenticated' && (
-						<li>
-							<Link href='/my-profile' className={classes.link}>
-								My Profile
-							</Link>
-						</li>
+						<>
+							<li>
+								<Link href='/my-profile' className={classes.link}>
+									My Profile
+								</Link>
+							</li>
+							<li>
+								<Link href='/events/create' className={classes.link}>
+									Create Event
+								</Link>
+							</li>
+						</>
 					)}
 					<li>
 						{status !== 'authenticated' ? (

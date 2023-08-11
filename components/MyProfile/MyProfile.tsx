@@ -3,23 +3,26 @@ import classes from './MyProfile.module.scss'
 import UserEvents from './UserEvents'
 import UserInfo from './UserInfo'
 import UserSignedEvents from './UserSignedEvents'
+import { UserModel } from '@/types/UserModel'
 
 interface MyProfileProps {
-	userInfo: { email: string; username: string }
+	userData: UserModel
 	userEvents: EventModel[]
 	userSignedEvents: EventModel[]
 }
 
 const MyProfile = ({
-	userInfo,
+	userData,
 	userEvents,
 	userSignedEvents,
 }: MyProfileProps): JSX.Element => {
 	return (
 		<section className={classes.section}>
-			<UserInfo email={userInfo.email} username={userInfo.username} />
-			<UserEvents events={userEvents} />
-			<UserSignedEvents />
+			<UserInfo userInfo={userData} />
+			<div className={classes.events}>
+				<UserEvents events={userEvents} />
+				<UserSignedEvents events={userSignedEvents} />
+			</div>
 		</section>
 	)
 }
