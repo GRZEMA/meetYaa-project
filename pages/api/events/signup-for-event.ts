@@ -11,7 +11,6 @@ const handler: NextApiHandler = async (req, res) => {
 
 		if (!session) {
 			res.status(401).json({ message: 'Unauthorized user.' })
-			client.close()
 			return
 		}
 
@@ -19,7 +18,6 @@ const handler: NextApiHandler = async (req, res) => {
 
 		if (!username) {
 			res.status(422).json({ message: 'Invalid user.' })
-			client.close()
 			return
 		}
 
@@ -29,7 +27,6 @@ const handler: NextApiHandler = async (req, res) => {
 			.collection('users')
 			.updateOne({ userName: username }, { $push: { signedEvents: eventId } })
 
-		client.close()
 		res.status(201).json({ message: 'Signed up for event.' })
 	}
 }

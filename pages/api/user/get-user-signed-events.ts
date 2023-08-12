@@ -9,7 +9,9 @@ const handler: NextApiHandler = async (req, res) => {
 
 		const userData = await getUserData(username!)
 
-		const signedEventsId = userData.signedEvents?.map(
+		let signedEventsId: ObjectId[] | undefined = []
+
+		signedEventsId = userData.signedEvents?.map(
 			(eventId: string) => new ObjectId(eventId)
 		)
 
@@ -23,8 +25,6 @@ const handler: NextApiHandler = async (req, res) => {
 			.toArray()
 
 		res.status(200).json({ events: ownedEvents })
-
-		client.close()
 	}
 }
 

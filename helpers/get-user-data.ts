@@ -11,7 +11,7 @@ export const getUserData = async (username: string) => {
 
 	const userData = {
 		...result,
-		_id: result!._id.toString(),
+		_id: result?._id.toString(),
 	}
 
 	return userData

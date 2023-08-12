@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { Exo } from 'next/font/google'
 import Link from 'next/link'
@@ -17,6 +18,12 @@ interface NavBarProps {
 
 const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 	const { status } = useSession()
+	const router = useRouter()
+
+	const logoutHandler = () => {
+		signOut({ redirect: false })
+		router.push('/')
+	}
 
 	return (
 		<nav className={classes.navbar + ' ' + exo.className}>
@@ -57,9 +64,7 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 								Sign In / Sign Up
 							</Link>
 						) : (
-							<button
-								className='logout'
-								onClick={() => signOut({ redirect: false })}>
+							<button className='logout' onClick={logoutHandler}>
 								Logout
 							</button>
 						)}

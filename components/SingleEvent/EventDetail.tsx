@@ -7,6 +7,7 @@ import { PaymentContext } from '@/store/payment-context'
 import classes from './EventDetail.module.scss'
 
 import { Exo } from 'next/font/google'
+import { UserModel } from '@/types/UserModel'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 interface EventDetailProps {
@@ -16,7 +17,8 @@ interface EventDetailProps {
 	ticketPrice: number
 	location: string
 	id: string
-	userData: any
+	userData: UserModel
+	organizerData: UserModel
 }
 
 const EventDetail = ({
@@ -27,6 +29,7 @@ const EventDetail = ({
 	ticketPrice,
 	id,
 	userData,
+	organizerData,
 }: EventDetailProps): JSX.Element => {
 	const [detailsActive, setDetailsActive] = useState(true)
 	const [userSigned, setUserSigned] = useState(false)
@@ -58,7 +61,7 @@ const EventDetail = ({
 	}
 
 	useEffect(() => {
-		if (userData?.signedEvents.some((eventId: string) => eventId === id)) {
+		if (userData?.signedEvents?.some((eventId: string) => eventId === id)) {
 			setUserSigned(true)
 		}
 	}, [userData, id])
@@ -80,7 +83,7 @@ const EventDetail = ({
 					<li
 						className={detailsActive ? undefined : classes.active}
 						onClick={setDetailsNotActiveHandler}>
-						<p>Organizer Info</p>
+						<p>Organizer</p>
 					</li>
 				</ul>
 			</nav>
@@ -94,7 +97,13 @@ const EventDetail = ({
 							</p>
 						</>
 					) : (
-						<p>ORGANIZER INFO</p>
+						<>
+							<p>Organizer Name: {organizerData.userName}</p>
+							<p>
+								Contact Email:{' '}
+								{organizerData.email ? organizerData.email : 'not set'}
+							</p>
+						</>
 					)}
 				</div>
 			</div>

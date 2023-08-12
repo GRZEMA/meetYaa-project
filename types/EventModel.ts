@@ -8,4 +8,5 @@ export interface EventModel {
 	image: string
 	ticketPrice: number
 	featured: boolean
+	organizer: string
 }

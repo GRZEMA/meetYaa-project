@@ -27,7 +27,6 @@ export const authOptions: NextAuthOptions = {
 						.findOne({ userName: username })
 
 					if (!userCredentials) {
-						client.close()
 						throw new Error('User not found!')
 					}
 
@@ -38,8 +37,6 @@ export const authOptions: NextAuthOptions = {
 					if (!isValid) {
 						throw new Error('Invalid credentials!')
 					}
-
-					client.close()
 
 					return { name: userCredentials.userName } as any
 				} catch {

@@ -23,6 +23,7 @@ const DummyPay = (): JSX.Element => {
 
 			if (res.status === 201) {
 				router.back()
+				localStorage.setItem('firstSignup', 'true')
 			}
 		}
 	}

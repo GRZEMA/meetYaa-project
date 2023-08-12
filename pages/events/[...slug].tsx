@@ -6,17 +6,26 @@ import { EventModel } from '@/types/EventModel'
 import { getUserData } from '@/helpers/get-user-data'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
+import { UserModel } from '@/types/UserModel'
 
 interface SingleEventPageProps {
 	event: EventModel
-	userData: any
+	userData: UserModel
+	organizerData: UserModel
 }
 
 const SingeEventPage = ({
 	event,
 	userData,
+	organizerData,
 }: SingleEventPageProps): JSX.Element => {
-	return <SingleEvent event={event} userData={userData} />
+	return (
+		<SingleEvent
+			event={event}
+			userData={userData}
+			organizerData={organizerData}
+		/>
+	)
 }
 
 export default SingeEventPage
@@ -26,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 	const { slug } = params
 
 	const singleEvent = await getEventById(slug[0])
+	const organizerData = await getUserData(singleEvent.organizer)
 
 	const session = await getServerSession(context.req, context.res, authOptions)
 
@@ -41,6 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 		props: {
 			event: singleEvent,
 			userData: userData,
+			organizerData: organizerData,
 		},
 	}
 }

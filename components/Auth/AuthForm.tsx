@@ -1,5 +1,6 @@
-import { FormEvent, useState, useRef } from 'react'
+import { FormEvent, useState, useRef, useContext } from 'react'
 import { getSession, signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { validateLoginForm } from '@/helpers/login-validator'
 import { registerHandler } from '@/helpers/register'
@@ -7,11 +8,15 @@ import { registerHandler } from '@/helpers/register'
 import classes from './AuthForm.module.scss'
 
 import { Exo } from 'next/font/google'
+import { ModalContext } from '@/store/modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
 const AuthForm = (): JSX.Element => {
 	const [login, setLogin] = useState(true)
+	const { openFunction, setModalType, closeFunction } = useContext(ModalContext)
+
+	const router = useRouter()
 
 	const usernameRef = useRef<HTMLInputElement>(null)
 	const passwordRef = useRef<HTMLInputElement>(null)
@@ -22,42 +27,58 @@ const AuthForm = (): JSX.Element => {
 		const session = await getSession()
 		if (session) {
 			// Modal that says you are already logged in
-			console.log('Already logged in.')
+			setModalType('Information')
+			openFunction('Already logged in', 'You are already logged in.')
 			return
 		}
 
 		const username = usernameRef.current!.value
 		const password = passwordRef.current!.value
 
+		const errors = validateLoginForm(username, password)
+
 		if (!login) {
-			if (!validateLoginForm(username, password)) {
+			if (errors.length > 0) {
 				// return modal that says invalid inputs
-				console.log('not ok')
+				setModalType('Error')
+				openFunction('Invalid input', 'Your inputs are invalid!', errors)
 				return
 			}
 
-			const res = await registerHandler(username, password)
-			console.log(res)
+			await registerHandler(username, password)
+			await signIn('credentials', {
+				redirect: false,
+				username,
+				password,
+			})
+
+			setModalType('Information')
+			openFunction('Success', 'You have successfully registered!')
+
 			usernameRef.current!.value = ''
 			passwordRef.current!.value = ''
 			return
 		}
 
-		if (!validateLoginForm(username, password)) {
+		if (errors.length > 0) {
 			// return modal that says invalid inputs
-			console.log('not ok')
+			setModalType('Error')
+			openFunction('Invalid input', 'Your inputs are invalid!', errors)
+			console.log(errors)
 			return
 		}
 
-		const res = await signIn('credentials', {
+		await signIn('credentials', {
 			redirect: false,
 			username,
 			password,
 		})
 
-		console.log(res)
+		setModalType('Information')
+		openFunction('Success', 'You have successfully logged in!')
 		usernameRef.current!.value = ''
 		passwordRef.current!.value = ''
+		await router.push('/my-profile')
 	}
 
 	const formStateHandler = (e: FormEvent) => {

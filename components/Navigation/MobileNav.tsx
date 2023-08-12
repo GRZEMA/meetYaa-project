@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRef } from 'react'
 import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { Exo } from 'next/font/google'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,12 +20,18 @@ interface MobileNavProps {
 
 const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 	const navRef = useRef<HTMLElement>(null)
+	const router = useRouter()
 
 	const hideNavHandler = (e: React.MouseEvent) => {
 		const el = e.target as HTMLElement
 		if (el.tagName === 'A') {
 			navHandler()
 		}
+	}
+
+	const logoutHandler = () => {
+		signOut({ redirect: false })
+		router.push('/')
 	}
 
 	const { status } = useSession()
@@ -50,7 +57,7 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 						{status === 'authenticated' ? (
 							<button
 								className={`logout ${classes.signin}`}
-								onClick={() => signOut({ redirect: false })}>
+								onClick={logoutHandler}>
 								Logout
 							</button>
 						) : (

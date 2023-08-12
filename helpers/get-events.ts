@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { connectToMongoDB } from './db'
+import { EventModel } from '@/types/EventModel'
 
 export const transformEvents = (events: any[]) => {
 	const newEvents = events.map((event) => {
@@ -42,5 +43,5 @@ export const getEventById = async (id: string) => {
 
 	const event = await db.collection('events').findOne({ _id: newId })
 
-	return { ...event, _id: event?._id.toString() }
+	return { ...event, _id: event?._id.toString() } as EventModel
 }

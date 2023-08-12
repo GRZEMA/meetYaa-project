@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import classes from './EventLocation.module.scss'
+import { Suspense } from 'react'
 
 interface EventLocationProps {
 	location: string

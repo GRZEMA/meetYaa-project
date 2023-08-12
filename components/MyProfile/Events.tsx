@@ -1,20 +1,21 @@
 import { EventModel } from '@/types/EventModel'
-import classes from './UserEvents.module.scss'
-import { useState } from 'react'
+import classes from './Events.module.scss'
+import { useEffect, useState } from 'react'
 import EventsList from './EventsList'
 
 interface UserEventsProps {
-	events: EventModel[]
+	events: EventModel[] | undefined
+	title: string
 }
 
-const UserEvents = ({ events }: UserEventsProps) => {
+const Events = ({ title, events }: UserEventsProps) => {
 	const [isShowMore, setIsShowMore] = useState(false)
 
 	return (
 		<div className={classes.events}>
-			<h2>My Events</h2>
+			<h2>{title}</h2>
 			<EventsList events={events} isShowMore={isShowMore} />
-			{events.length > 1 && (
+			{events && events.length > 1 && (
 				<button
 					className={classes['more-btn']}
 					onClick={() => {
@@ -27,4 +28,4 @@ const UserEvents = ({ events }: UserEventsProps) => {
 	)
 }
 
-export default UserEvents
+export default Events

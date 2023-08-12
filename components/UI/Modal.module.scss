@@ -1,0 +1,51 @@
+.backdrop {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.75);
+	z-index: 500;
+}
+
+.modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #eef4ed;
+	padding: 2rem;
+	width: 75%;
+	border-radius: 50px;
+	align-items: center;
+	z-index: 501;
+	color: #0b2545;
+	text-align: center;
+
+	h2 {
+		padding: 1rem;
+		font-size: 1.5rem;
+	}
+
+	p {
+		margin-bottom: 1rem;
+		font-size: 1.1rem;
+	}
+
+	button {
+		padding: 0.5rem 2rem;
+		font-size: 1rem;
+		border-radius: 50px;
+		font-weight: bold;
+		color: #0b2545;
+		background-color: #8da9c4;
+		border: none;
+		transition: background-color 0.3s ease-out;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #64798c;
+		}
+	}
+}

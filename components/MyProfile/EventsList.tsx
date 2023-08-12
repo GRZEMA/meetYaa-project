@@ -5,7 +5,7 @@ import classes from './EventsList.module.scss'
 import { useRouter } from 'next/router'
 
 interface EventsListProps {
-	events: EventModel[]
+	events: EventModel[] | undefined
 	isShowMore: boolean
 }
 
@@ -14,7 +14,18 @@ const EventsList = ({ isShowMore, events }: EventsListProps): JSX.Element => {
 
 	return (
 		<ul className={classes.list}>
-			{events.length === 0 ? (
+			{!events ? (
+				<div className={classes.error}>
+					<div className={classes.loading}>
+						<Image
+							src='/images/loading-spiner.webp'
+							height={100}
+							width={100}
+							alt='loading...'
+						/>
+					</div>
+				</div>
+			) : events.length === 0 ? (
 				<div className={classes.error}>
 					<p>Unfortunately there is nothing to be shown!</p>
 				</div>

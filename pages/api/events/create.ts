@@ -11,7 +11,6 @@ const handler: NextApiHandler = async (req, res) => {
 
 		if (!session) {
 			res.status(401).json({ message: 'Unauthorized user.' })
-			client.close()
 			return
 		}
 
@@ -37,13 +36,11 @@ const handler: NextApiHandler = async (req, res) => {
 			!briefDescription
 		) {
 			res.status(422).json({ message: 'Invalid input.' })
-			client.close()
 			return
 		}
 
 		if (!username) {
 			res.status(422).json({ message: 'Invalid user.' })
-			client.close()
 			return
 		}
 
@@ -56,6 +53,7 @@ const handler: NextApiHandler = async (req, res) => {
 			time,
 			image,
 			ticketPrice,
+			organizer: username,
 		}
 
 		let db = client.db('events')

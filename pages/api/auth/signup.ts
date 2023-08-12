@@ -18,7 +18,6 @@ const handler: NextApiHandler = async (req, res) => {
 
 		if (existingUser) {
 			res.status(422).json({ message: 'User already exists' })
-			client.close()
 			return
 		}
 
@@ -32,16 +31,19 @@ const handler: NextApiHandler = async (req, res) => {
 				message:
 					'Unvalid credentials - password must also be at least 6 characters long',
 			})
-			client.close()
 			return
 		}
 
 		const hashedPassword = await encryptPassword(userPassword)
 
-		await db.collection('users').insertOne({ userName, hashedPassword })
+		await db.collection('users').insertOne({
+			userName,
+			hashedPassword,
+			ownedEvents: [],
+			signedEvents: [],
+		})
 
 		res.status(201).json({ message: 'Successfully created user!' })
-		client.close()
 	}
 }
 
