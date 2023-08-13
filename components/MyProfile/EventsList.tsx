@@ -38,7 +38,12 @@ const EventsList = ({ isShowMore, events }: EventsListProps): JSX.Element => {
 							router.push(`/events/${event._id}`)
 						}}>
 						<div className={classes.image}>
-							<Image src={event.image} alt={event.briefDescription} fill />
+							<Image
+								src={event.image}
+								alt={event.briefDescription}
+								fill
+								sizes='100px'
+							/>
 						</div>
 						<div className={classes.info}>
 							<h3>{event.title}</h3>
@@ -58,6 +63,7 @@ const EventsList = ({ isShowMore, events }: EventsListProps): JSX.Element => {
 							src={events[0].image}
 							alt={events[0].briefDescription}
 							fill
+							sizes='100px'
 						/>
 					</div>
 					<div className={classes.info}>

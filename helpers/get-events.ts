@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import axios from 'axios'
 import { connectToMongoDB } from './db'
 import { EventModel } from '@/types/EventModel'
 
@@ -10,38 +11,49 @@ export const transformEvents = (events: any[]) => {
 	return newEvents
 }
 
+interface eventsResponse {
+	events?: EventModel[]
+	message: string
+}
+
 export const getAllEvents = async () => {
-	const client = await connectToMongoDB()
-	const db = client.db('events')
+	const response = await axios.get<eventsResponse>(
+		'http://localhost:3000/api/events/get-all-events'
+	)
 
-	const events = await db.collection('events').find().toArray()
+	if (!response.data.events) {
+		return { message: response.data.message }
+	}
 
-	const transformedEvents = transformEvents(events)
-
-	return transformedEvents
+	return response.data as eventsResponse
 }
 
 export const getFeaturedEvents = async () => {
-	const client = await connectToMongoDB()
-	const db = client.db('events')
+	const response = await axios.get<eventsResponse>(
+		'http://localhost:3000/api/events/get-featured-events'
+	)
 
-	const events = await db
-		.collection('events')
-		.find({ featured: true })
-		.toArray()
+	if (!response.data.events) {
+		return { message: response.data.message }
+	}
 
-	const transformedEvents = transformEvents(events)
+	return response.data as eventsResponse
+}
 
-	return transformedEvents
+interface eventResponse {
+	event?: EventModel
+	message: string
 }
 
 export const getEventById = async (id: string) => {
-	const client = await connectToMongoDB()
-	const db = client.db('events')
+	const response = await axios.get<eventResponse>(
+		'http://localhost:3000/api/events/get-signle-event',
+		{ params: { id } }
+	)
 
-	const newId = new ObjectId(id)
+	if (!response.data.event) {
+		return { message: response.data.message }
+	}
 
-	const event = await db.collection('events').findOne({ _id: newId })
-
-	return { ...event, _id: event?._id.toString() } as EventModel
+	return response.data as eventResponse
 }

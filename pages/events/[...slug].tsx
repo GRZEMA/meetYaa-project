@@ -35,7 +35,16 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 	const { slug } = params
 
 	const singleEvent = await getEventById(slug[0])
-	const organizerData = await getUserData(singleEvent.organizer)
+
+	if (!singleEvent.event) {
+		return {
+			props: {
+				message: singleEvent.message,
+			},
+		}
+	}
+
+	const organizerData = await getUserData(singleEvent.event?.organizer)
 
 	const session = await getServerSession(context.req, context.res, authOptions)
 
@@ -49,8 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 	return {
 		props: {
-			event: singleEvent,
-			userData: userData,
+			event: singleEvent.event,
+			userData: userData?.userData,
 			organizerData: organizerData,
 		},
 	}

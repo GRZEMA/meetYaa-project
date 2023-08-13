@@ -11,7 +11,12 @@ const handler: NextApiHandler = async (req, res) => {
 
 		let signedEventsId: ObjectId[] | undefined = []
 
-		signedEventsId = userData.signedEvents?.map(
+		if (!userData) {
+			res.status(404).json({ message: 'User not found' })
+			return
+		}
+
+		signedEventsId = userData.userData?.signedEvents?.map(
 			(eventId: string) => new ObjectId(eventId)
 		)
 

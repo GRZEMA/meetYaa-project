@@ -9,9 +9,14 @@ const handler: NextApiHandler = async (req, res) => {
 
 		const userData = await getUserData(username!)
 
+		if (!userData) {
+			res.status(404).json({ message: 'User not found' })
+			return
+		}
+
 		let userEventsId: ObjectId[] | undefined = []
 
-		userEventsId = userData.ownedEvents?.map(
+		userEventsId = userData.userData?.ownedEvents?.map(
 			(eventId: string) => new ObjectId(eventId)
 		)
 
@@ -24,7 +29,7 @@ const handler: NextApiHandler = async (req, res) => {
 			.find({ _id: { $in: userEventsId } })
 			.toArray()
 
-		res.status(200).json({ events: ownedEvents, userData: userData })
+		res.status(200).json({ events: ownedEvents, userData: userData.userData })
 	}
 }
 

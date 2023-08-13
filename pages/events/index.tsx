@@ -5,19 +5,31 @@ import { GetStaticProps } from 'next'
 
 interface EventsPageProps {
 	events: EventModel[]
+	message: string
 }
 
-const EventsPage = ({ events }: EventsPageProps): JSX.Element => {
+const EventsPage = ({ events, message }: EventsPageProps): JSX.Element => {
+	if (!events) return <p>{message}</p>
 	return <AllEvents events={events} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {
 	const events = await getAllEvents()
 
+	if (!events.events) {
+		return {
+			props: {
+				events: undefined,
+				message: 'No events found',
+			},
+		}
+	}
+
 	return {
 		props: {
-			events: events,
+			events: events.events,
 		},
+		revalidate: 10,
 	}
 }
 

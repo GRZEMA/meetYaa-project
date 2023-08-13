@@ -1,18 +1,22 @@
 import { UserModel } from '@/types/UserModel'
-import { connectToMongoDB } from './db'
+import axios from 'axios'
+
+interface responseUserData {
+	message: string
+	userData?: UserModel
+}
 
 export const getUserData = async (username: string) => {
-	const client = await connectToMongoDB()
-	const db = client.db('auth')
+	const response = await axios.get<responseUserData>(
+		'http://localhost:3000/api/user/get-user-data',
+		{
+			params: { username },
+		}
+	)
 
-	const result = await db
-		.collection<UserModel>('users')
-		.findOne({ userName: username })
-
-	const userData = {
-		...result,
-		_id: result?._id.toString(),
+	if (!response.data.userData) {
+		return { message: response.data.message }
 	}
 
-	return userData
+	return response.data
 }

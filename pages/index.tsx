@@ -7,9 +7,11 @@ import Head from 'next/head'
 
 interface HomeProps {
 	events: EventModel[]
+	message: string
 }
 
-export default function Home({ events }: HomeProps): JSX.Element {
+export default function Home({ events, message }: HomeProps): JSX.Element {
+	if (!events) return <p>{message}</p>
 	return (
 		<>
 			<section>
@@ -20,14 +22,21 @@ export default function Home({ events }: HomeProps): JSX.Element {
 	)
 }
 
-export const getStaticProps: GetStaticProps<{
-	events: EventModel[]
-}> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const events = await getFeaturedEvents()
+
+	if (!events.events) {
+		return {
+			props: {
+				events: undefined,
+				message: 'No events found',
+			},
+		}
+	}
 
 	return {
 		props: {
-			events: events,
+			events: events.events,
 		},
 		revalidate: 600,
 	}
