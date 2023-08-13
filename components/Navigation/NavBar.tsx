@@ -9,6 +9,8 @@ import Logo from './Logo'
 import BurgerBtn from './BurgerBtn'
 
 import classes from './NavBar.module.scss'
+import { useContext } from 'react'
+import { ModalContext } from '@/store/modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
@@ -17,12 +19,20 @@ interface NavBarProps {
 }
 
 const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
+	const { closeFunction } = useContext(ModalContext)
 	const { status } = useSession()
 	const router = useRouter()
 
 	const logoutHandler = () => {
 		signOut({ redirect: false })
 		router.push('/')
+	}
+
+	const closeModalHandler = (e: React.MouseEvent) => {
+		const el = e.target as HTMLElement
+		if (el.tagName === 'A') {
+			closeFunction()
+		}
 	}
 
 	return (
@@ -33,7 +43,7 @@ const NavBar = ({ navHandler }: NavBarProps): JSX.Element => {
 			</div>
 			<div className={classes['desktop-navbar']}>
 				<Logo />
-				<ul className={classes.list}>
+				<ul className={classes.list} onClick={closeModalHandler}>
 					<li>
 						<Link href='/' className={classes.link}>
 							Home

@@ -14,7 +14,7 @@ const exo = Exo({ subsets: ['latin-ext'] })
 
 const AuthForm = (): JSX.Element => {
 	const [login, setLogin] = useState(true)
-	const { openFunction, setModalType, closeFunction } = useContext(ModalContext)
+	const { openFunction, setModalType } = useContext(ModalContext)
 
 	const router = useRouter()
 

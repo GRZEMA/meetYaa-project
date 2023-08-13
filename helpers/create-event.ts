@@ -21,8 +21,12 @@ export const createEvent = async ({
 	username: string
 	ticketPrice: number
 }) => {
-	const res = axios
-		.post('/api/events/create', {
+	const res = await fetch('http://localhost:3000/api/events/create', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
 			title,
 			location,
 			date,
@@ -32,8 +36,12 @@ export const createEvent = async ({
 			briefDescription,
 			username,
 			ticketPrice,
+		}),
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			return { data: data }
 		})
-		.then((res) => res)
 		.catch((err) => err)
 
 	return res

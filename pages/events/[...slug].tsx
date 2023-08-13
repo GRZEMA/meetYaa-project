@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 	const username = session?.user?.name
 
-	let userData = null
+	let userData = { userData: null }
 
 	if (username) {
 		userData = await getUserData(username)
@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 	return {
 		props: {
 			event: singleEvent.event,
-			userData: userData?.userData,
+			userData: userData ? userData.userData : null,
 			organizerData: organizerData,
 		},
 	}

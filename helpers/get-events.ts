@@ -1,6 +1,3 @@
-import { ObjectId } from 'mongodb'
-import axios from 'axios'
-import { connectToMongoDB } from './db'
 import { EventModel } from '@/types/EventModel'
 
 export const transformEvents = (events: any[]) => {
@@ -17,27 +14,35 @@ interface eventsResponse {
 }
 
 export const getAllEvents = async () => {
-	const response = await axios.get<eventsResponse>(
+	// const response = await axios.get<eventsResponse>(
+	// 	'http://localhost:3000/api/events/get-all-events'
+	// )
+
+	const response = await fetch(
 		'http://localhost:3000/api/events/get-all-events'
 	)
 
-	if (!response.data.events) {
-		return { message: response.data.message }
+	const data: eventsResponse = await response.json()
+
+	if (!data.events) {
+		return { message: data.message }
 	}
 
-	return response.data as eventsResponse
+	return data as eventsResponse
 }
 
 export const getFeaturedEvents = async () => {
-	const response = await axios.get<eventsResponse>(
+	const response = await fetch(
 		'http://localhost:3000/api/events/get-featured-events'
 	)
 
-	if (!response.data.events) {
-		return { message: response.data.message }
+	const data: eventsResponse = await response.json()
+
+	if (!data.events) {
+		return { message: data.message }
 	}
 
-	return response.data as eventsResponse
+	return data as eventsResponse
 }
 
 interface eventResponse {
@@ -46,14 +51,15 @@ interface eventResponse {
 }
 
 export const getEventById = async (id: string) => {
-	const response = await axios.get<eventResponse>(
-		'http://localhost:3000/api/events/get-signle-event',
-		{ params: { id } }
+	const response = await fetch(
+		'http://localhost:3000/api/events/get-signle-event?id=' + id
 	)
 
-	if (!response.data.event) {
-		return { message: response.data.message }
+	const data = await response.json()
+
+	if (!data.event) {
+		return { message: data.message }
 	}
 
-	return response.data as eventResponse
+	return data as eventResponse
 }

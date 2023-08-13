@@ -14,7 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
 			return
 		}
 
-		const { username, eventId } = req.body
+		const { username, eventId } = JSON.parse(req.body)
 
 		if (!username) {
 			res.status(422).json({ message: 'Invalid user.' })

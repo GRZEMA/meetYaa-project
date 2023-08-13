@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
@@ -10,6 +10,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { CSSTransition } from 'react-transition-group'
 
 import classes from './MobileNav.module.scss'
+import { ModalContext } from '@/store/modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
@@ -19,12 +20,14 @@ interface MobileNavProps {
 }
 
 const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
+	const { closeFunction } = useContext(ModalContext)
 	const navRef = useRef<HTMLElement>(null)
 	const router = useRouter()
 
 	const hideNavHandler = (e: React.MouseEvent) => {
 		const el = e.target as HTMLElement
 		if (el.tagName === 'A') {
+			closeFunction()
 			navHandler()
 		}
 	}

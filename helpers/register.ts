@@ -1,13 +1,11 @@
-import axios from 'axios'
-
 export const registerHandler = async (
 	userName: string,
 	userPassword: string
 ) => {
-	const res = axios
-		.post('/api/auth/signup', { userName, userPassword })
-		.then((res) => res)
-		.catch((err) => err)
+	const response = await fetch('/api/auth/signup', {
+		method: 'POST',
+		body: JSON.stringify({ userName, userPassword }),
+	})
 
-	return res
+	return response
 }
