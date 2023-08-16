@@ -68,11 +68,18 @@ const AuthForm = (): JSX.Element => {
 			return
 		}
 
-		await signIn('credentials', {
+		const res = await signIn('credentials', {
 			redirect: false,
 			username,
 			password,
 		})
+
+		if (!res?.ok) {
+			// Modal that says invalid credentials
+			setModalType('Error')
+			openFunction('Invalid credentials', 'Your credentials are invalid!')
+			return
+		}
 
 		setModalType('Information')
 		openFunction('Success', 'You have successfully logged in!')

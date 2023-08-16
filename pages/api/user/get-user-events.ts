@@ -35,7 +35,9 @@ const handler: NextApiHandler = async (req, res) => {
 			.find({ _id: { $in: userEventsId } })
 			.toArray()
 
-		res.status(200).json({ events: ownedEvents, userData: userData.userData })
+		res
+			.status(200)
+			.json({ events: ownedEvents, message: 'Succesfully fetched events' })
 	}
 }
 

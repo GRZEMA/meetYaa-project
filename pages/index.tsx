@@ -1,6 +1,7 @@
 import EventList from '@/components/EventList/EventList'
 import Heading from '@/components/UI/Heading'
-import { getFeaturedEvents } from '@/helpers/get-events'
+import { connectToMongoDB } from '@/helpers/db'
+import { getFeaturedEvents, transformEvents } from '@/helpers/get-events'
 import { EventModel } from '@/types/EventModel'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -23,20 +24,28 @@ export default function Home({ events, message }: HomeProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const events = await getFeaturedEvents()
+	const client = await connectToMongoDB()
+	const db = client.db('events')
 
-	if (!events.events) {
+	const events = await db
+		.collection('events')
+		.find({ featured: true })
+		.toArray()
+
+	const transformedEvents = transformEvents(events)
+
+	if (!events) {
 		return {
 			props: {
-				events: undefined,
-				message: 'No events found',
+				events: [],
+				message: 'Failed to fetch events',
 			},
 		}
 	}
 
 	return {
 		props: {
-			events: events.events,
+			events: transformedEvents,
 		},
 		revalidate: 600,
 	}

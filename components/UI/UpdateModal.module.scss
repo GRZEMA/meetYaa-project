@@ -24,18 +24,43 @@
 	color: #0b2545;
 	text-align: center;
 
-	h2 {
+	.input {
 		padding: 1rem;
-		font-size: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		label {
+			font-weight: bold;
+			margin-right: 0.5rem;
+			font-size: 1.4rem;
+		}
+
+		input {
+			padding: 0.25rem;
+			font-size: 1rem;
+			border: none;
+			border-bottom: 3px solid #8da9c4;
+			background: none;
+			width: 100%;
+
+			&:focus {
+				outline: none;
+				border-bottom: 3px solid #0b2545;
+			}
+		}
 	}
 
-	p {
-		margin-bottom: 1rem;
-		font-size: 1.1rem;
+	.btns {
+		width: 100%;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
 	}
 
 	button {
-		padding: 0.5rem 2rem;
+		padding: 0.5rem 1rem;
 		font-size: 1rem;
 		border-radius: 50px;
 		font-weight: bold;
@@ -47,6 +72,24 @@
 
 		&:hover {
 			background-color: #64798c;
+		}
+	}
+}
+
+@media (min-width: 576px) {
+	.modal {
+		.input {
+			flex-direction: row;
+
+			input {
+				width: auto;
+			}
+		}
+
+		.btns {
+			button {
+				padding: 0.75rem 2rem;
+			}
 		}
 	}
 }

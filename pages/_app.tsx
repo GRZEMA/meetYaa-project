@@ -27,9 +27,6 @@ export default function App({
 }: AppProps) {
 	const { asPath } = useRouter()
 
-	const { isOpen, message, title, type, closeFunction, errors } =
-		useContext(ModalContext)
-
 	return (
 		<SessionProvider session={session}>
 			<PaymentContextProvider>

@@ -1,5 +1,6 @@
 import AllEvents from '@/components/AllEvents/AllEvents'
-import { getAllEvents } from '@/helpers/get-events'
+import { connectToMongoDB } from '@/helpers/db'
+import { getAllEvents, transformEvents } from '@/helpers/get-events'
 import { EventModel } from '@/types/EventModel'
 import { GetStaticProps } from 'next'
 
@@ -14,22 +15,27 @@ const EventsPage = ({ events, message }: EventsPageProps): JSX.Element => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const events = await getAllEvents()
+	const client = await connectToMongoDB()
+	const db = client.db('events')
 
-	if (!events.events) {
+	const events = await db.collection('events').find().toArray()
+
+	const transformedEvents = transformEvents(events)
+
+	if (!events) {
 		return {
 			props: {
-				events: undefined,
-				message: 'No events found',
+				events: [],
+				message: 'Failed to fetch events',
 			},
 		}
 	}
 
 	return {
 		props: {
-			events: events.events,
+			events: transformedEvents,
 		},
-		revalidate: 10,
+		revalidate: 1,
 	}
 }
 

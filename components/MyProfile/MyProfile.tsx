@@ -8,20 +8,12 @@ import { useRouter } from 'next/router'
 import { getUserEvents } from '@/helpers/get-user-events'
 import { getSession } from 'next-auth/react'
 import { getUserSignedEvents } from '@/helpers/get-user-signed-events'
+import UpdateModal from '../UI/UpdateModal'
 
 const MyProfile = (): JSX.Element => {
 	const [userEvents, setUserEvents] = useState<EventModel[] | undefined>(
 		undefined
 	)
-	const [userData, setUserData] = useState<UserModel>({
-		_id: '',
-		userName: '',
-		hashedPassword: '',
-		email: '',
-		profilePicture: '',
-		signedEvents: [],
-		ownedEvents: [],
-	})
 	const [userSignedEvents, setUserSignedEvents] = useState<
 		EventModel[] | undefined
 	>(undefined)
@@ -37,12 +29,9 @@ const MyProfile = (): JSX.Element => {
 			const username = session?.user?.name
 
 			try {
-				const userEventsAndData = await getUserEvents(username!)
-				const userEvents = userEventsAndData.events
+				const { events: userEvents } = await getUserEvents(username!)
 				const userSignedEvents = await getUserSignedEvents(username!)
-				const userData: UserModel = userEventsAndData.userData
 
-				setUserData(userData)
 				setUserEvents(userEvents)
 				setUserSignedEvents(userSignedEvents.events)
 			} catch {
@@ -54,7 +43,8 @@ const MyProfile = (): JSX.Element => {
 	}, [router])
 	return (
 		<section className={classes.section}>
-			<UserInfo userInfo={userData} />
+			<UpdateModal />
+			<UserInfo />
 			<div className={classes.events}>
 				<Events events={userEvents} title='My Events' />
 				<Events events={userSignedEvents} title='My Signed Events' />

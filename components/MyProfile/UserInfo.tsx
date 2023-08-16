@@ -4,33 +4,35 @@ import classes from './UserInfo.module.scss'
 import { Exo } from 'next/font/google'
 import { UserModel } from '@/types/UserModel'
 import { useEffect, useState } from 'react'
+import { getUserData } from '@/helpers/get-user-data'
+
+import { useSession } from 'next-auth/react'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
-interface UserInfoProps {
-	userInfo: UserModel
-}
-
-const UserInfo = ({ userInfo }: UserInfoProps): JSX.Element => {
-	const [userName, setUsername] = useState('')
-	const [email, setEmail] = useState('')
-	const [profilePicture, setProfilePicture] = useState('')
+const UserInfo = (): JSX.Element => {
+	const [userData, setUserData] = useState<UserModel | undefined>(undefined)
+	const { data: session } = useSession()
 
 	useEffect(() => {
-		if (userInfo) {
-			setUsername(userInfo.userName)
+		const username = session?.user?.name
 
-			if (userInfo.email) {
-				setEmail(userInfo.email)
-			}
-			if (userInfo.profilePicture) {
-				setProfilePicture(userInfo.profilePicture)
-			}
+		if (!username) {
+			return
 		}
-	}, [userInfo])
 
-	const profilePictureUrl = profilePicture
-		? profilePicture
+		const fetchUseEffect = async () => {
+			const userData = await getUserData(username)
+			if (!userData.userData) {
+				return
+			}
+			setUserData(userData.userData)
+		}
+		fetchUseEffect()
+	}, [session?.user?.name])
+
+	const profilePictureUrl = userData?.profilePicture
+		? userData.profilePicture
 		: '/images/defaultUser.png'
 
 	return (
@@ -38,10 +40,15 @@ const UserInfo = ({ userInfo }: UserInfoProps): JSX.Element => {
 			<div className={classes.image}>
 				<Image alt='' src={profilePictureUrl} fill />
 			</div>
+			<button className={classes['change-profile-pic-btn']}>
+				Change Profile Picture
+			</button>
 			<div className={classes['user-info']}>
-				<h2>{userName ? userName.toUpperCase() : 'Loading...'}</h2>
+				<h2>
+					{userData?.userName ? userData?.userName.toUpperCase() : 'Loading...'}
+				</h2>
 				<p>
-					Contact Email: {email ? email : 'not set'} -{' '}
+					Contact Email: {userData?.email ? userData?.email : 'not set'} -{' '}
 					<span>
 						<button className={classes['change-btn'] + ' ' + exo.className}>
 							Change

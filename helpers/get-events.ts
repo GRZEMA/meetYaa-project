@@ -14,10 +14,6 @@ interface eventsResponse {
 }
 
 export const getAllEvents = async () => {
-	// const response = await axios.get<eventsResponse>(
-	// 	'http://localhost:3000/api/events/get-all-events'
-	// )
-
 	const response = await fetch(
 		'http://localhost:3000/api/events/get-all-events'
 	)
@@ -42,7 +38,7 @@ export const getFeaturedEvents = async () => {
 		return { message: data.message }
 	}
 
-	return data as eventsResponse
+	return data as any
 }
 
 interface eventResponse {
@@ -58,7 +54,7 @@ export const getEventById = async (id: string) => {
 	const data = await response.json()
 
 	if (!data.event) {
-		return { message: data.message }
+		return { message: data.message } as eventResponse
 	}
 
 	return data as eventResponse

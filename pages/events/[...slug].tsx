@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 	const username = session?.user?.name
 
-	let userData = { userData: null }
+	let userData: { userData?: UserModel; message: string } = null as any
 
 	if (username) {
 		userData = await getUserData(username)
