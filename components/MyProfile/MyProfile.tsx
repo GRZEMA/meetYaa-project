@@ -3,12 +3,13 @@ import classes from './MyProfile.module.scss'
 import UserInfo from './UserInfo'
 import { UserModel } from '@/types/UserModel'
 import Events from './Events'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { getUserEvents } from '@/helpers/get-user-events'
 import { getSession } from 'next-auth/react'
 import { getUserSignedEvents } from '@/helpers/get-user-signed-events'
 import UpdateModal from '../UI/UpdateModal'
+import { UpdateModalContext } from '@/store/update-modal-context'
 
 const MyProfile = (): JSX.Element => {
 	const [userEvents, setUserEvents] = useState<EventModel[] | undefined>(
@@ -18,6 +19,8 @@ const MyProfile = (): JSX.Element => {
 		EventModel[] | undefined
 	>(undefined)
 	const router = useRouter()
+
+	const { closeFunction, isOpen, label } = useContext(UpdateModalContext)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -43,7 +46,7 @@ const MyProfile = (): JSX.Element => {
 	}, [router])
 	return (
 		<section className={classes.section}>
-			<UpdateModal />
+			{isOpen && <UpdateModal label={label} onClose={closeFunction} />}
 			<UserInfo />
 			<div className={classes.events}>
 				<Events events={userEvents} title='My Events' />

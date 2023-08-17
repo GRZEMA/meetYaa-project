@@ -1,17 +1,15 @@
 import { createContext, useState } from 'react'
 
 const initialValues: {
-	openFunction: (label: string, type: string) => void
+	openFunction: (label: string) => void
 	closeFunction: () => void
 	isOpen: boolean
 	label: string
-	type: string
 } = {
-	openFunction: (label: string, type: string) => {},
+	openFunction: (label: string) => {},
 	closeFunction: () => {},
 	isOpen: false,
 	label: '',
-	type: '',
 }
 
 export const UpdateModalContext = createContext(initialValues)
@@ -23,17 +21,14 @@ const UpdateModalContextProvider = ({
 }): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [label, setLabel] = useState('')
-	const [type, setType] = useState('')
 
 	const closeFunction = () => {
 		setIsOpen(false)
 		setLabel('')
-		setType('')
 	}
 
-	const openFunction = (label: string, type: string) => {
+	const openFunction = (label: string) => {
 		setLabel(label)
-		setType(type)
 		setIsOpen(true)
 	}
 
@@ -44,7 +39,6 @@ const UpdateModalContextProvider = ({
 				closeFunction,
 				openFunction,
 				label,
-				type,
 			}}>
 			{children}
 		</UpdateModalContext.Provider>

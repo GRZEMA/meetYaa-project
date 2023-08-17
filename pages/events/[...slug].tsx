@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 		props: {
 			event: singleEvent.event,
 			userData: userData ? userData.userData : null,
-			organizerData: organizerData,
+			organizerData: organizerData ? organizerData.userData : null,
 		},
 	}
 }

@@ -34,6 +34,8 @@ const EventDetail = ({
 	const [detailsActive, setDetailsActive] = useState(true)
 	const [userSigned, setUserSigned] = useState(false)
 
+	console.log(organizerData.userName)
+
 	const router = useRouter()
 	const session = useSession()
 	const paymentCtx = useContext(PaymentContext)

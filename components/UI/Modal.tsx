@@ -26,7 +26,11 @@ const Modal = ({
 
 	return (
 		<div className={classes.backdrop + ' ' + exo.className} onClick={onClose}>
-			<div className={classes.modal}>
+			<div
+				className={classes.modal}
+				onClick={(e) => {
+					e.stopPropagation()
+				}}>
 				<h2 className={h2Classes}>{title}</h2>
 				<p className={messageClasses}>{message}</p>
 				{errors

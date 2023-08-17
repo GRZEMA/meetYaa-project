@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
 		const {
 			userName,
 			userPassword,
-		}: { userName: string; userPassword: string } = req.body
+		}: { userName: string; userPassword: string } = JSON.parse(req.body)
 
 		const existingUser = await db
 			.collection('users')
@@ -41,6 +41,8 @@ const handler: NextApiHandler = async (req, res) => {
 			hashedPassword,
 			ownedEvents: [],
 			signedEvents: [],
+			email: '',
+			profilePicture: '',
 		})
 
 		res.status(201).json({ message: 'Successfully created user!' })

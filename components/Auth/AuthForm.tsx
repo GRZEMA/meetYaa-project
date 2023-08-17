@@ -45,15 +45,20 @@ const AuthForm = (): JSX.Element => {
 				return
 			}
 
-			await registerHandler(username, password)
+			const response = await registerHandler(username, password)
 			await signIn('credentials', {
 				redirect: false,
 				username,
 				password,
 			})
 
-			setModalType('Information')
-			openFunction('Success', 'You have successfully registered!')
+			if (response.status === 201) {
+				setModalType('Information')
+				openFunction('Success', 'You have successfully registered!')
+			} else {
+				setModalType('Error')
+				openFunction('Error', 'Something went wrong!')
+			}
 
 			usernameRef.current!.value = ''
 			passwordRef.current!.value = ''

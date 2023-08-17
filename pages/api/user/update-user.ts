@@ -6,11 +6,11 @@ import { encryptPassword } from '@/helpers/auth-helpers'
 
 const handler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
-		const { email, password, profilePic, username } = req.body
+		const { email, password, profilePic, username } = JSON.parse(req.body)
 
 		const client = await connectToMongoDB()
 
-		const db = client.db('users')
+		const db = client.db('auth')
 
 		const session = await getServerSession(req, res, authOptions)
 
@@ -20,9 +20,14 @@ const handler: NextApiHandler = async (req, res) => {
 		}
 
 		if (email) {
-			await db
+			const response = await db
 				.collection('users')
 				.updateOne({ userName: username }, { $set: { email: email } })
+
+			if (response.modifiedCount === 0) {
+				res.status(422).json({ message: 'User not found' })
+				return
+			}
 
 			res.status(200).json({ message: 'Email updated' })
 			// Update email
@@ -30,13 +35,20 @@ const handler: NextApiHandler = async (req, res) => {
 
 		if (password) {
 			// Update password
-			const encryptedPassword = encryptPassword(password)
-			await db
+			const encryptedPassword = await encryptPassword(password)
+			const response = await db
 				.collection('users')
 				.updateOne(
 					{ userName: username },
-					{ $set: { password: encryptedPassword } }
+					{ $set: { hashedPassword: encryptedPassword } }
 				)
+
+			if (response.modifiedCount === 0) {
+				res.status(422).json({ message: 'User not found' })
+				return
+			}
+
+			res.status(200).json({ message: 'Password updated' })
 		}
 
 		if (profilePic) {
@@ -47,6 +59,7 @@ const handler: NextApiHandler = async (req, res) => {
 					{ userName: username },
 					{ $set: { profilePicture: profilePic } }
 				)
+			res.status(200).json({ message: 'Profile picture updated' })
 		}
 	}
 }
