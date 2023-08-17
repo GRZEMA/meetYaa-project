@@ -46,7 +46,9 @@ const MyProfile = (): JSX.Element => {
 	}, [router])
 	return (
 		<section className={classes.section}>
-			{isOpen && <UpdateModal label={label} onClose={closeFunction} />}
+			{isOpen && (
+				<UpdateModal label={label} onClose={closeFunction} type='credentials' />
+			)}
 			<UserInfo />
 			<div className={classes.events}>
 				<Events events={userEvents} title='My Events' />

@@ -9,4 +9,5 @@ export interface EventModel {
 	ticketPrice: number
 	featured: boolean
 	organizer: string
+	time: string
 }

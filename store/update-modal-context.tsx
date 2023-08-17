@@ -1,12 +1,12 @@
 import { createContext, useState } from 'react'
 
 const initialValues: {
-	openFunction: (label: string) => void
+	openFunction: (label?: string) => void
 	closeFunction: () => void
 	isOpen: boolean
 	label: string
 } = {
-	openFunction: (label: string) => {},
+	openFunction: (label?: string) => {},
 	closeFunction: () => {},
 	isOpen: false,
 	label: '',
@@ -27,8 +27,8 @@ const UpdateModalContextProvider = ({
 		setLabel('')
 	}
 
-	const openFunction = (label: string) => {
-		setLabel(label)
+	const openFunction = (label?: string) => {
+		if (label) setLabel(label)
 		setIsOpen(true)
 	}
 

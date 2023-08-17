@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 
 import { PaymentContext } from '@/store/payment-context'
 
@@ -8,6 +8,7 @@ import classes from './EventDetail.module.scss'
 
 import { Exo } from 'next/font/google'
 import { UserModel } from '@/types/UserModel'
+import { UpdateModalContext } from '@/store/update-modal-context'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 interface EventDetailProps {
@@ -34,11 +35,13 @@ const EventDetail = ({
 	const [detailsActive, setDetailsActive] = useState(true)
 	const [userSigned, setUserSigned] = useState(false)
 
-	console.log(organizerData.userName)
+	const session = useSession()
+	const { status } = session
 
 	const router = useRouter()
-	const session = useSession()
 	const paymentCtx = useContext(PaymentContext)
+
+	const { openFunction } = useContext(UpdateModalContext)
 
 	const setDetailsActiveHandler = () => {
 		setDetailsActive(true)
@@ -49,14 +52,16 @@ const EventDetail = ({
 	}
 
 	const signUpHandler = async () => {
-		if (session.status === 'unauthenticated') {
+		const session = await getSession()
+
+		if (status === 'unauthenticated') {
 			router.push('/auth')
 			return
 		}
 
 		// signup for event logic
 
-		paymentCtx.updateUsername(session.data!.user!.name!)
+		paymentCtx.updateUsername(session!.user!.name!)
 		paymentCtx.updateEventId(id)
 
 		router.push('/dummy-pay')
@@ -109,12 +114,22 @@ const EventDetail = ({
 					)}
 				</div>
 			</div>
-			<button
-				className={classes.signup + ' ' + exo.className}
-				onClick={userSigned ? undefined : signUpHandler}
-				disabled={userSigned}>
-				{userSigned ? 'Already signed up' : 'Sign up'}
-			</button>
+			{session?.data?.user?.name === organizerData.userName ? (
+				<button
+					className={classes.btn + ' ' + exo.className}
+					onClick={() => {
+						openFunction('event')
+					}}>
+					Edit your Event
+				</button>
+			) : (
+				<button
+					className={classes.btn + ' ' + exo.className}
+					onClick={userSigned ? undefined : signUpHandler}
+					disabled={userSigned}>
+					{userSigned ? 'Already signed up' : 'Sign up'}
+				</button>
+			)}
 		</div>
 	)
 }

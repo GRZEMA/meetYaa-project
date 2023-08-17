@@ -10,7 +10,23 @@ import { getSession } from 'next-auth/react'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
-const CreateEventForm = (): JSX.Element => {
+interface CreateEventFormProps {
+	openFunction: (
+		title: string,
+		message: string,
+		errors?:
+			| {
+					message: string
+			  }[]
+			| undefined
+	) => void
+	setModalType: (type: 'Error' | 'Information') => void
+}
+
+const CreateEventForm = ({
+	openFunction,
+	setModalType,
+}: CreateEventFormProps): JSX.Element => {
 	const titleRef = useRef<HTMLInputElement>(null)
 	const locationRef = useRef<HTMLInputElement>(null)
 	const dateRef = useRef<HTMLInputElement>(null)
@@ -26,7 +42,8 @@ const CreateEventForm = (): JSX.Element => {
 		const session = await getSession()
 
 		if (!session) {
-			console.log('You need to be logged in to create an event!')
+			setModalType('Error')
+			openFunction('Error', 'You need to be logged in to create an event!')
 			return
 		}
 		const username = session!.user!.name!
@@ -51,7 +68,8 @@ const CreateEventForm = (): JSX.Element => {
 		})
 
 		if (errors.length > 0) {
-			console.log(errors)
+			setModalType('Error')
+			openFunction('Error', 'Please fill all the fields correctly!', errors)
 			return
 		}
 
@@ -66,6 +84,14 @@ const CreateEventForm = (): JSX.Element => {
 			username,
 			ticketPrice: Number(ticketPrice),
 		})
+
+		if (res.status !== 200) {
+			setModalType('Error')
+			openFunction('Error', 'Something went wrong!')
+		}
+
+		setModalType('Information')
+		openFunction('Success!', 'Event succesfully created!')
 
 		titleRef.current!.value = ''
 		locationRef.current!.value = ''

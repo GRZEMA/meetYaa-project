@@ -16,9 +16,8 @@ import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 
 import { Exo } from 'next/font/google'
-import Modal from '@/components/UI/Modal'
-import { useContext } from 'react'
 import ModalContextProvider, { ModalContext } from '@/store/modal-context'
+import UpdateModalContextProvider from '@/store/update-modal-context'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 export default function App({
@@ -31,16 +30,18 @@ export default function App({
 		<SessionProvider session={session}>
 			<PaymentContextProvider>
 				<ModalContextProvider>
-					<Head>
-						<title>meetYAA Events</title>
-					</Head>
-					<Navigation />
-					<NextNProgress />
-					{asPath === '/' && <Header />}
-					<main className={exo.className}>
-						<Component {...pageProps} />
-					</main>
-					<Footer />
+					<UpdateModalContextProvider>
+						<Head>
+							<title>meetYAA Events</title>
+						</Head>
+						<Navigation />
+						<NextNProgress />
+						{asPath === '/' && <Header />}
+						<main className={exo.className}>
+							<Component {...pageProps} />
+						</main>
+						<Footer />
+					</UpdateModalContextProvider>
 				</ModalContextProvider>
 			</PaymentContextProvider>
 		</SessionProvider>

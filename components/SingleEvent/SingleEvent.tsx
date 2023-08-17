@@ -8,6 +8,8 @@ import Modal from '../UI/Modal'
 import { useContext, useEffect } from 'react'
 import { ModalContext } from '@/store/modal-context'
 import { UserModel } from '@/types/UserModel'
+import { UpdateModalContext } from '@/store/update-modal-context'
+import UpdateModal from '../UI/UpdateModal'
 
 interface SingleEventProps {
 	event: EventModel
@@ -22,23 +24,29 @@ const SingleEvent = ({
 }: SingleEventProps): JSX.Element => {
 	const {
 		message,
-		closeFunction,
+		closeFunction: closeMessageModal,
 		title,
 		type,
 		errors,
-		isOpen,
-		openFunction,
+		isOpen: isOpenMessageModal,
+		openFunction: openMessageModal,
 		setModalType,
 	} = useContext(ModalContext)
+
+	const {
+		closeFunction: closeUpdateModal,
+		isOpen: isOpenUpdateModal,
+		label,
+	} = useContext(UpdateModalContext)
 
 	useEffect(() => {
 		const firstSignup = localStorage.getItem('firstSignup')
 		if (firstSignup) {
 			setModalType('Information')
-			openFunction('Welcome!', 'Thank you for signing up!')
+			openMessageModal('Welcome!', 'Thank you for signing up!')
 			localStorage.removeItem('firstSignup')
 		}
-	}, [openFunction, setModalType])
+	}, [openMessageModal, setModalType])
 
 	return (
 		<section className={classes['event-box']}>
@@ -57,13 +65,21 @@ const SingleEvent = ({
 				userData={userData}
 				organizerData={organizerData}
 			/>
-			{isOpen && (
+			{isOpenMessageModal && (
 				<Modal
 					message={message}
-					onClose={closeFunction}
+					onClose={closeMessageModal}
 					title={title}
 					type={type}
 					errors={errors}
+				/>
+			)}
+			{isOpenUpdateModal && (
+				<UpdateModal
+					label={label}
+					onClose={closeUpdateModal}
+					type='event'
+					eventInformations={event}
 				/>
 			)}
 		</section>

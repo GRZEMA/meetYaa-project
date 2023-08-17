@@ -68,7 +68,7 @@ const handler: NextApiHandler = async (req, res) => {
 				{ $push: { ownedEvents: response?._id.toString() } }
 			)
 
-		res.status(201).json({ message: 'Event created.', event: newEvent })
+		res.status(200).json({ message: 'Event created.', event: newEvent })
 	}
 }
 
