@@ -19,7 +19,7 @@ export const createEvent = async ({
 	username: string
 	ticketPrice: number
 }) => {
-	const res = await fetch('http://localhost:3000/api/events/create', {
+	const res = await fetch('/api/events/create', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

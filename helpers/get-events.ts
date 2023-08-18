@@ -14,9 +14,7 @@ interface eventsResponse {
 }
 
 export const getAllEvents = async () => {
-	const response = await fetch(
-		'http://localhost:3000/api/events/get-all-events'
-	)
+	const response = await fetch('/api/events/get-all-events')
 
 	const data: eventsResponse = await response.json()
 
@@ -28,9 +26,7 @@ export const getAllEvents = async () => {
 }
 
 export const getFeaturedEvents = async () => {
-	const response = await fetch(
-		'http://localhost:3000/api/events/get-featured-events'
-	)
+	const response = await fetch('/api/events/get-featured-events')
 
 	const data: eventsResponse = await response.json()
 
@@ -47,9 +43,7 @@ interface eventResponse {
 }
 
 export const getEventById = async (id: string) => {
-	const response = await fetch(
-		'http://localhost:3000/api/events/get-signle-event?id=' + id
-	)
+	const response = await fetch('/api/events/get-signle-event?id=' + id)
 
 	const data = await response.json()
 

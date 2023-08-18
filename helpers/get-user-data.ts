@@ -6,9 +6,7 @@ export interface responseUserData {
 }
 
 export const getUserData = async (username: string) => {
-	const response = await fetch(
-		'http://localhost:3000/api/user/get-user-data?username=' + username
-	)
+	const response = await fetch('/api/user/get-user-data?username=' + username)
 
 	const data = await response.json()
 
