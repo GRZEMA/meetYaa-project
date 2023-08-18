@@ -9,7 +9,6 @@ Welcome to the meetYaa Events, a web application built with Next.js and TypeScri
 - Event registration and ticket purchase
 - Event search and filtering 
 - Organizers' event management possibility
-- Email notifications for event updates and ticket purchases
 
 ## Tech Stack
 - Next.js: Server-side rendering, routing, and API integration.
