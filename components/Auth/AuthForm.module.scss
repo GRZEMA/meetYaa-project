@@ -66,6 +66,12 @@
 		&:hover {
 			background-color: #64798c;
 		}
+
+		&:disabled {
+			background-color: #ddd;
+			color: #888;
+			cursor: not-allowed;
+		}
 	}
 
 	.member {

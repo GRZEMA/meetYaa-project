@@ -34,6 +34,7 @@ const EventDetail = ({
 }: EventDetailProps): JSX.Element => {
 	const [detailsActive, setDetailsActive] = useState(true)
 	const [userSigned, setUserSigned] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const session = useSession()
 	const { status } = session
@@ -53,14 +54,16 @@ const EventDetail = ({
 
 	const signUpHandler = async () => {
 		const session = await getSession()
+		setLoading(true)
 
 		if (status === 'unauthenticated') {
+			setLoading(false)
 			router.push('/auth')
 			return
 		}
 
 		// signup for event logic
-
+		setLoading(false)
 		paymentCtx.updateUsername(session!.user!.name!)
 		paymentCtx.updateEventId(id)
 

@@ -14,6 +14,7 @@ const exo = Exo({ subsets: ['latin-ext'] })
 
 const AuthForm = (): JSX.Element => {
 	const [login, setLogin] = useState(true)
+	const [loading, setLoading] = useState(false)
 	const { openFunction, setModalType } = useContext(ModalContext)
 
 	const router = useRouter()
@@ -24,6 +25,7 @@ const AuthForm = (): JSX.Element => {
 	const authHandler = async (e: FormEvent) => {
 		e.preventDefault()
 
+		setLoading(true)
 		const session = await getSession()
 		if (session) {
 			// Modal that says you are already logged in
@@ -53,9 +55,11 @@ const AuthForm = (): JSX.Element => {
 			})
 
 			if (response.status === 201) {
+				setLoading(false)
 				setModalType('Information')
 				openFunction('Success', 'You have successfully registered!')
 			} else {
+				setLoading(false)
 				setModalType('Error')
 				openFunction('Error', 'Something went wrong!')
 			}
@@ -69,7 +73,6 @@ const AuthForm = (): JSX.Element => {
 			// return modal that says invalid inputs
 			setModalType('Error')
 			openFunction('Invalid input', 'Your inputs are invalid!', errors)
-			console.log(errors)
 			return
 		}
 
@@ -80,12 +83,13 @@ const AuthForm = (): JSX.Element => {
 		})
 
 		if (!res?.ok) {
-			// Modal that says invalid credentials
+			setLoading(false)
 			setModalType('Error')
 			openFunction('Invalid credentials', 'Your credentials are invalid!')
 			return
 		}
 
+		setLoading(false)
 		setModalType('Information')
 		openFunction('Success', 'You have successfully logged in!')
 		usernameRef.current!.value = ''
@@ -120,8 +124,11 @@ const AuthForm = (): JSX.Element => {
 					required
 				/>
 				<button className={classes.forgot}>Forgot Password?</button>
-				<button className={classes.confirm + ' ' + exo.className} type='submit'>
-					{login ? 'Login' : 'Register'}
+				<button
+					className={classes.confirm + ' ' + exo.className}
+					type='submit'
+					disabled={loading}>
+					{loading ? 'Loading...' : login ? 'Login' : 'Register'}
 				</button>
 				<div className={classes.member}>
 					<p>{login ? 'Not a member?' : 'Already a member?'}</p>

@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react'
 import { NextFont } from 'next/dist/compiled/@next/font'
-import { Dispatch, FormEvent, SetStateAction, useRef } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react'
 
 import classes from './EventUpdate.module.scss'
 import { EventModel } from '@/types/EventModel'
@@ -29,6 +29,7 @@ const EventUpdate = ({
 		title,
 		_id,
 	} = eventInformations
+	const [loading, setLoading] = useState(false)
 
 	const briefDescriptionRef = useRef<HTMLInputElement>(null)
 	const dateRef = useRef<HTMLInputElement>(null)
@@ -56,6 +57,7 @@ const EventUpdate = ({
 			setMessage('You need to be logged in to update an event!')
 		}
 
+		setLoading(true)
 		const response = await fetch('/api/events/update-event', {
 			method: 'PATCH',
 			body: JSON.stringify({
@@ -72,9 +74,11 @@ const EventUpdate = ({
 		})
 
 		if (response.status !== 200) {
+			setLoading(false)
 			setMessage('Something went wrong!')
 		}
 
+		setLoading(false)
 		setMessage('Event updated!')
 	}
 
@@ -171,8 +175,8 @@ const EventUpdate = ({
 					<button className={exo.className} onClick={onClose}>
 						Cancel
 					</button>
-					<button className={exo.className} type='submit'>
-						Confirm
+					<button className={exo.className} type='submit' disabled={loading}>
+						{loading ? 'Loading...' : 'Confirm'}
 					</button>
 				</div>
 			</form>

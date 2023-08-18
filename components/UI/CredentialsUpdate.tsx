@@ -1,6 +1,6 @@
 import { comparePasswords } from '@/helpers/auth-helpers'
 import { getSession } from 'next-auth/react'
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
 interface CredentialsUpdateProps {
 	label: string
@@ -19,6 +19,7 @@ const CredentialsUpdate = ({
 }: CredentialsUpdateProps): JSX.Element => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const passwordRef = useRef<HTMLInputElement>(null)
+	const [loading, setLoading] = useState(false)
 
 	const submitHandler = async () => {
 		const session = await getSession()
@@ -62,12 +63,16 @@ const CredentialsUpdate = ({
 			bodyValues.profilePic = value
 		}
 
+		setLoading(true)
 		const response = await fetch('/api/user/update-user', {
 			method: 'POST',
 			body: JSON.stringify(bodyValues),
 		})
 
 		const data = await response.json()
+		if (data) {
+			setLoading(false)
+		}
 		setMessage(data.message)
 	}
 
@@ -100,7 +105,9 @@ const CredentialsUpdate = ({
 				/>
 			</div>
 			<div className={classes.btns}>
-				<button onClick={submitHandler}>Submit</button>
+				<button onClick={submitHandler} disabled={loading}>
+					{loading ? 'Loading..' : 'Confirm'}
+				</button>
 				<button onClick={onClose} className={exo.className}>
 					Close
 				</button>
