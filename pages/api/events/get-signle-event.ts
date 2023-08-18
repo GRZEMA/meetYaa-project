@@ -1,5 +1,4 @@
 import { connectToMongoDB } from '@/helpers/db'
-import { transformEvents } from '@/helpers/get-events'
 import { EventModel } from '@/types/EventModel'
 import { ObjectId } from 'mongodb'
 import { NextApiHandler } from 'next'

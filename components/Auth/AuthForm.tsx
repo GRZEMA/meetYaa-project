@@ -15,7 +15,7 @@ const exo = Exo({ subsets: ['latin-ext'] })
 const AuthForm = (): JSX.Element => {
 	const [login, setLogin] = useState(true)
 	const [loading, setLoading] = useState(false)
-	const { openFunction, setModalType } = useContext(ModalContext)
+	const { openFunction, setModalType, closeFunction } = useContext(ModalContext)
 
 	const router = useRouter()
 
@@ -95,6 +95,7 @@ const AuthForm = (): JSX.Element => {
 		usernameRef.current!.value = ''
 		passwordRef.current!.value = ''
 		await router.push('/my-profile')
+		closeFunction()
 	}
 
 	const formStateHandler = (e: FormEvent) => {

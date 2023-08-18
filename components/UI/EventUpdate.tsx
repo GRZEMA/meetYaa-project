@@ -1,9 +1,11 @@
 import { getSession } from 'next-auth/react'
 import { NextFont } from 'next/dist/compiled/@next/font'
 import { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import classes from './EventUpdate.module.scss'
 import { EventModel } from '@/types/EventModel'
+import { deleteEvent } from '@/helpers/delete-event'
 
 interface EventUpdateProps {
 	exo: NextFont
@@ -18,6 +20,8 @@ const EventUpdate = ({
 	setMessage,
 	eventInformations,
 }: EventUpdateProps): JSX.Element => {
+	const router = useRouter()
+
 	const {
 		briefDescription,
 		date,
@@ -80,6 +84,21 @@ const EventUpdate = ({
 
 		setLoading(false)
 		setMessage('Event updated!')
+	}
+
+	const deleteEventHandler = async () => {
+		setLoading(true)
+		const data = await deleteEvent(_id)
+
+		if (!data) {
+			setLoading(false)
+			setMessage('Something went wrong!')
+			return
+		}
+
+		setLoading(false)
+		setMessage('Event deleted!')
+		router.push('/events')
 	}
 
 	return (
@@ -172,11 +191,17 @@ const EventUpdate = ({
 					</div>
 				</div>
 				<div className={classes.btns}>
-					<button className={exo.className} onClick={onClose}>
+					<button
+						className={exo.className}
+						onClick={onClose}
+						disabled={loading}>
 						Cancel
 					</button>
 					<button className={exo.className} type='submit' disabled={loading}>
 						{loading ? 'Loading...' : 'Confirm'}
+					</button>
+					<button onClick={deleteEventHandler} type='button' disabled={loading}>
+						{loading ? 'Loading...' : 'Delete Event'}
 					</button>
 				</div>
 			</form>

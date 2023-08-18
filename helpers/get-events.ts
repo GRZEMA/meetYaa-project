@@ -44,7 +44,7 @@ interface eventResponse {
 
 export const getEventById = async (id: string) => {
 	const response = await fetch(
-		'https://meet-yaa-project.vercel.app//api/events/get-signle-event?id=' + id
+		'https://meet-yaa-project.vercel.app/api/events/get-signle-event?id=' + id
 	)
 
 	const data = await response.json()
