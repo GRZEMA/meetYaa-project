@@ -13,6 +13,8 @@ import LogoSvg from '../Navigation/LogoSvg'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 const Footer = (): JSX.Element => {
+	const footerStyles = {}
+
 	return (
 		<footer className={classes.footer + ' ' + exo.className}>
 			<div className={classes.wrapper}>
@@ -32,7 +34,10 @@ const Footer = (): JSX.Element => {
 						<li>
 							<Link href='/'>
 								<span>
-									<FontAwesomeIcon icon={faFacebookSquare} />
+									<FontAwesomeIcon
+										icon={faFacebookSquare}
+										style={{ height: '1.2rem' }}
+									/>
 								</span>
 								Facebook
 							</Link>
@@ -40,7 +45,10 @@ const Footer = (): JSX.Element => {
 						<li>
 							<Link href='/'>
 								<span>
-									<FontAwesomeIcon icon={faTwitterSquare} />
+									<FontAwesomeIcon
+										icon={faTwitterSquare}
+										style={{ height: '1.2rem' }}
+									/>
 								</span>
 								Twitter
 							</Link>
@@ -48,7 +56,10 @@ const Footer = (): JSX.Element => {
 						<li>
 							<Link href='/'>
 								<span>
-									<FontAwesomeIcon icon={faInstagramSquare} />
+									<FontAwesomeIcon
+										icon={faInstagramSquare}
+										style={{ height: '1.2rem' }}
+									/>
 								</span>
 								Instagram
 							</Link>

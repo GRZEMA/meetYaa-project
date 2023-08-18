@@ -24,8 +24,14 @@
 
 		li {
 			padding: 0.25rem 0;
+			a {
+				display: flex;
+			}
 
 			span {
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				margin-right: 0.5rem;
 			}
 		}
