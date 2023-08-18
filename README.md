@@ -1,6 +1,6 @@
-# Event Management Platform
+# meetYaa Events
 
-Welcome to the Event Management Platform, a web application built with Next.js and TypeScript for managing and organizing events. This platform allows users to create events, register attendees, signup for events, and more. It's a comprehensive solution for event organizers and attendees alike.
+Welcome to the meetYaa Events, a web application built with Next.js and TypeScript for managing and organizing events. This platform allows users to create events, register attendees, signup for events, and more. It's a comprehensive solution for event organizers and attendees alike.
 
 ## Features
 
