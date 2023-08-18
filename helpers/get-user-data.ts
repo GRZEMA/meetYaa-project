@@ -6,7 +6,10 @@ export interface responseUserData {
 }
 
 export const getUserData = async (username: string) => {
-	const response = await fetch('/api/user/get-user-data?username=' + username)
+	const response = await fetch(
+		'https://meet-yaa-project.vercel.app/api/user/get-user-data?username=' +
+			username
+	)
 
 	const data = await response.json()
 
