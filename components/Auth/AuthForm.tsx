@@ -124,7 +124,9 @@ const AuthForm = (): JSX.Element => {
 					ref={passwordRef}
 					required
 				/>
-				<button className={classes.forgot}>Forgot Password?</button>
+				{login ? (
+					<button className={classes.forgot}>Forgot Password?</button>
+				) : null}
 				<button
 					className={classes.confirm + ' ' + exo.className}
 					type='submit'
