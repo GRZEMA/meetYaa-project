@@ -13,8 +13,6 @@ import LogoSvg from '../Navigation/LogoSvg'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 const Footer = (): JSX.Element => {
-	const footerStyles = {}
-
 	return (
 		<footer className={classes.footer + ' ' + exo.className}>
 			<div className={classes.wrapper}>

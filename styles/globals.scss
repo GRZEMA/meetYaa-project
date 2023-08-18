@@ -18,12 +18,15 @@ main {
 body {
 	background-color: #eef4ed;
 	position: relative;
+	min-height: 80vh;
 }
 
 section {
 	width: 100%;
+	min-height: 80vh;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	padding: 1rem;
 }
