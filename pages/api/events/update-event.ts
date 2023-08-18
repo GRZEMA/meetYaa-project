@@ -25,8 +25,14 @@ const handler: NextApiHandler = async (req, res) => {
 			title,
 		} = JSON.parse(req.body)
 
-		const client = await connectToMongoDB()
-		const db = client.db('events')
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('events')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		const response = await db.collection('events').updateOne(
 			{ _id: new ObjectId(id) },
@@ -43,6 +49,12 @@ const handler: NextApiHandler = async (req, res) => {
 				},
 			}
 		)
+
+		console.log(response)
+		if (response.modifiedCount === 0) {
+			res.status(404).json({ message: 'Event not updated!' })
+			return
+		}
 
 		res.status(200).json({ message: 'Event updated!' })
 	}

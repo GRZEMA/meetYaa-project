@@ -6,7 +6,7 @@ import formAnimation from '@/public/lottie/form.json'
 
 import classes from './CreateEvent.module.scss'
 import { useContext } from 'react'
-import { ModalContext } from '@/store/modal-context'
+import { ModalContext } from '@/store/context/modal-context'
 import Modal from '../UI/Modal'
 
 const CreateEvent = (): JSX.Element => {

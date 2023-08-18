@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react'
 import { getUserData } from '@/helpers/get-user-data'
 
 import { useSession } from 'next-auth/react'
-import { UpdateModalContext } from '@/store/update-modal-context'
+import { UpdateModalContext } from '@/store/context/update-modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 

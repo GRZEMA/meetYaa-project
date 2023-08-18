@@ -9,7 +9,7 @@ import { getUserEvents } from '@/helpers/get-user-events'
 import { getSession } from 'next-auth/react'
 import { getUserSignedEvents } from '@/helpers/get-user-signed-events'
 import UpdateModal from '../UI/UpdateModal'
-import { UpdateModalContext } from '@/store/update-modal-context'
+import { UpdateModalContext } from '@/store/context/update-modal-context'
 
 const MyProfile = (): JSX.Element => {
 	const [userEvents, setUserEvents] = useState<EventModel[] | undefined>(

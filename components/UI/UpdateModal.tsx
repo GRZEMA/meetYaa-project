@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import classes from './UpdateModal.module.scss'
 
 import { Exo } from 'next/font/google'
@@ -23,7 +24,7 @@ const UpdateModal = ({
 }: ModalProps): JSX.Element => {
 	const [message, setMessage] = useState<string | undefined>(undefined)
 
-	return (
+	return createPortal(
 		<div className={classes.backdrop + ' ' + exo.className} onClick={onClose}>
 			<div
 				className={classes.modal}
@@ -59,7 +60,8 @@ const UpdateModal = ({
 					)
 				)}
 			</div>
-		</div>
+		</div>,
+		document.getElementById('modals')!
 	)
 }
 

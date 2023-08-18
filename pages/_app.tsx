@@ -9,15 +9,15 @@ import '@/styles/globals.scss'
 
 import Head from 'next/head'
 
-import PaymentContextProvider from '@/store/payment-context'
+import PaymentContextProvider from '@/store/context/payment-context'
 
 import Navigation from '@/components/Navigation/Navigation'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 
 import { Exo } from 'next/font/google'
-import ModalContextProvider, { ModalContext } from '@/store/modal-context'
-import UpdateModalContextProvider from '@/store/update-modal-context'
+import ModalContextProvider from '@/store/context/modal-context'
+
 const exo = Exo({ subsets: ['latin-ext'] })
 
 export default function App({
@@ -30,9 +30,21 @@ export default function App({
 		<SessionProvider session={session}>
 			<PaymentContextProvider>
 				<ModalContextProvider>
-					<UpdateModalContextProvider>
 						<Head>
 							<title>meetYAA Events</title>
+							<link
+								rel='shortcut icon'
+								href='/images/favicon.svg'
+								type='image/x-icon'
+							/>
+							<meta
+								name='description'
+								content='Explore our dynamic platform with exciting featured events, create your own gatherings, manage your profile, and easily connect with a community of enthusiasts. Join us today!'
+							/>
+							<meta
+								name='viewport'
+								content='width=device-width, initial-scale=1.0'
+							/>
 						</Head>
 						<Navigation />
 						<NextNProgress />
@@ -41,7 +53,6 @@ export default function App({
 							<Component {...pageProps} />
 						</main>
 						<Footer />
-					</UpdateModalContextProvider>
 				</ModalContextProvider>
 			</PaymentContextProvider>
 		</SessionProvider>

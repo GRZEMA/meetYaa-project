@@ -6,9 +6,9 @@ import EventLocation from './EventLocation'
 import classes from './SingleEvent.module.scss'
 import Modal from '../UI/Modal'
 import { useContext, useEffect } from 'react'
-import { ModalContext } from '@/store/modal-context'
+import { ModalContext } from '@/store/context/modal-context'
 import { UserModel } from '@/types/UserModel'
-import { UpdateModalContext } from '@/store/update-modal-context'
+import { UpdateModalContext } from '@/store/context/update-modal-context'
 import UpdateModal from '../UI/UpdateModal'
 
 interface SingleEventProps {

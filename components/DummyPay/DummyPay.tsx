@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 import { useContext } from 'react'
-import { PaymentContext } from '@/store/payment-context'
+import { PaymentContext } from '@/store/context/payment-context'
 
 import classes from './DummyPay.module.scss'
 

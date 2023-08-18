@@ -5,7 +5,7 @@ import someKindGuyAnimation from '@/public/lottie/someKindGuy.json'
 import formAnimation from '@/public/lottie/formSubmit.json'
 import Modal from '../UI/Modal'
 import { useContext } from 'react'
-import { ModalContext } from '@/store/modal-context'
+import { ModalContext } from '@/store/context/modal-context'
 
 const Auth = (): JSX.Element => {
 	const { isOpen, message, title, type, closeFunction, errors } =

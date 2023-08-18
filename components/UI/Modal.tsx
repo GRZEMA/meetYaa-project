@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom'
 import classes from './Modal.module.scss'
 
 import { Exo } from 'next/font/google'
@@ -24,7 +25,7 @@ const Modal = ({
 	const messageClasses =
 		type === 'Information' ? classes['info-msg'] : classes['error-msg']
 
-	return (
+	return createPortal(
 		<div className={classes.backdrop + ' ' + exo.className} onClick={onClose}>
 			<div
 				className={classes.modal}
@@ -40,7 +41,8 @@ const Modal = ({
 					Close
 				</button>
 			</div>
-		</div>
+		</div>,
+		document.getElementById('modals')!
 	)
 }
 

@@ -3,14 +3,20 @@ import { encryptPassword } from '@/helpers/auth-helpers'
 import { NextApiHandler } from 'next'
 
 const handler: NextApiHandler = async (req, res) => {
-	const client = await connectToMongoDB()
-	const db = client.db('auth')
-
 	if (req.method === 'POST') {
 		const {
 			userName,
 			userPassword,
 		}: { userName: string; userPassword: string } = JSON.parse(req.body)
+		
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('auth')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		const existingUser = await db
 			.collection('users')

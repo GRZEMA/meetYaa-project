@@ -8,7 +8,7 @@ import { registerHandler } from '@/helpers/register'
 import classes from './AuthForm.module.scss'
 
 import { Exo } from 'next/font/google'
-import { ModalContext } from '@/store/modal-context'
+import { ModalContext } from '@/store/context/modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 

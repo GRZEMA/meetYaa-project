@@ -1,5 +1,7 @@
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 
+import UpdateModalContextProvider from '@/store/context/update-modal-context'
 import SingleEvent from '@/components/SingleEvent/SingleEvent'
 import { getEventById } from '@/helpers/get-events'
 import { EventModel } from '@/types/EventModel'
@@ -20,11 +22,17 @@ const SingeEventPage = ({
 	organizerData,
 }: SingleEventPageProps): JSX.Element => {
 	return (
-		<SingleEvent
-			event={event}
-			userData={userData}
-			organizerData={organizerData}
-		/>
+		<UpdateModalContextProvider>
+			<Head>
+				<title>meetYAA Events | {event.title}</title>
+				<meta name='description' content={event.briefDescription} />
+			</Head>
+			<SingleEvent
+				event={event}
+				userData={userData}
+				organizerData={organizerData}
+			/>
+		</UpdateModalContextProvider>
 	)
 }
 

@@ -1,5 +1,4 @@
 import { hash, compare } from 'bcryptjs'
-import { connectToMongoDB } from './db'
 import { getUserData } from './get-user-data'
 
 export const encryptPassword = async (password: string) => {

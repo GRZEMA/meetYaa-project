@@ -6,8 +6,14 @@ const handler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {
 		const { username } = req.query
 
-		const client = await connectToMongoDB()
-		const db = client.db('auth')
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('auth')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		const result = await db
 			.collection<UserModel>('users')

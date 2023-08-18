@@ -5,8 +5,6 @@ import { authOptions } from '../auth/[...nextauth]'
 
 const handler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
-		const client = await connectToMongoDB()
-
 		const session = await getServerSession(req, res, authOptions)
 
 		if (!session) {
@@ -21,7 +19,14 @@ const handler: NextApiHandler = async (req, res) => {
 			return
 		}
 
-		const db = client.db('auth')
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('auth')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		await db
 			.collection('users')

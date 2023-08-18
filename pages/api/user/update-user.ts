@@ -8,9 +8,14 @@ const handler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
 		const { email, password, profilePic, username } = JSON.parse(req.body)
 
-		const client = await connectToMongoDB()
-
-		const db = client.db('auth')
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('auth')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		const session = await getServerSession(req, res, authOptions)
 

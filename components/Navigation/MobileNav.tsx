@@ -10,7 +10,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { CSSTransition } from 'react-transition-group'
 
 import classes from './MobileNav.module.scss'
-import { ModalContext } from '@/store/modal-context'
+import { ModalContext } from '@/store/context/modal-context'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 

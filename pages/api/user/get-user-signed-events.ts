@@ -12,7 +12,13 @@ const handler: NextApiHandler = async (req, res) => {
 			return
 		}
 
-		const userData = await getUserData(username!)
+		let userData
+		try {
+			userData = await getUserData(username!)
+		} catch {
+			res.status(500).json({ message: 'Could get user from database' })
+			return
+		}
 
 		if (!userData) {
 			res.status(404).json({ message: 'User not found' })
@@ -25,9 +31,14 @@ const handler: NextApiHandler = async (req, res) => {
 			(eventId: string) => new ObjectId(eventId)
 		)
 
-		const client = await connectToMongoDB()
-
-		const db = client.db('events')
+		let db
+		try {
+			const client = await connectToMongoDB()
+			db = client.db('events')
+		} catch {
+			res.status(500).json({ message: 'Could not connect to database' })
+			return
+		}
 
 		const ownedEvents = await db
 			.collection('events')

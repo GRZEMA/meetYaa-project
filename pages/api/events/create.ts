@@ -5,8 +5,6 @@ import { authOptions } from '../auth/[...nextauth]'
 
 const handler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
-		const client = await connectToMongoDB()
-
 		const session = await getServerSession(req, res, authOptions)
 
 		if (!session) {
@@ -56,17 +54,31 @@ const handler: NextApiHandler = async (req, res) => {
 			organizer: username,
 		}
 
-		let db = client.db('events')
-		await db.collection('events').insertOne(newEvent)
-		const response = await db.collection('events').findOne(newEvent)
+		let db
+		let client
+		let response
+		try {
+			client = await connectToMongoDB()
+			db = client.db('events')
+			await db.collection('events').insertOne(newEvent)
+			response = await db.collection('events').findOne(newEvent)
+		} catch {
+			res.status(500).json({ message: 'Could not connect to events database.' })
+			return
+		}
 
-		db = client.db('auth')
-		await db
-			.collection('users')
-			.updateOne(
-				{ userName: username },
-				{ $push: { ownedEvents: response?._id.toString() } }
-			)
+		try {
+			db = client.db('auth')
+			await db
+				.collection('users')
+				.updateOne(
+					{ userName: username },
+					{ $push: { ownedEvents: response?._id.toString() } }
+				)
+		} catch {
+			res.status(500).json({ message: 'Could not connect to auth database.' })
+			return
+		}
 
 		res.status(200).json({ message: 'Event created.', event: newEvent })
 	}

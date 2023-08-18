@@ -2,13 +2,13 @@ import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getSession, useSession } from 'next-auth/react'
 
-import { PaymentContext } from '@/store/payment-context'
+import { PaymentContext } from '@/store/context/payment-context'
 
 import classes from './EventDetail.module.scss'
 
 import { Exo } from 'next/font/google'
 import { UserModel } from '@/types/UserModel'
-import { UpdateModalContext } from '@/store/update-modal-context'
+import { UpdateModalContext } from '@/store/context/update-modal-context'
 const exo = Exo({ subsets: ['latin-ext'] })
 
 interface EventDetailProps {
