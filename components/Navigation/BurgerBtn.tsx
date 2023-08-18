@@ -10,7 +10,12 @@ interface BurgerBtnProps {
 const BurgerBtn = ({ navHandler }: BurgerBtnProps): JSX.Element => {
 	return (
 		<button className={classes.btn} onClick={navHandler}>
-			<FontAwesomeIcon icon={faBars} color='#EEF4ED' size='2x' />
+			<FontAwesomeIcon
+				icon={faBars}
+				color='#EEF4ED'
+				size='2x'
+				style={{ height: '2rem' }}
+			/>
 		</button>
 	)
 }

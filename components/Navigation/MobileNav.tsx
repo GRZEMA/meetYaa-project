@@ -53,7 +53,12 @@ const MobileNav = ({ navHandler, isOpen }: MobileNavProps): JSX.Element => {
 			unmountOnExit>
 			<nav className={`${classes.navigation} ${exo.className}`} ref={navRef}>
 				<button className={classes['close-btn']} onClick={navHandler}>
-					<FontAwesomeIcon icon={faXmark} color='white' size='2x' />
+					<FontAwesomeIcon
+						icon={faXmark}
+						color='white'
+						size='2x'
+						style={{ height: '2rem' }}
+					/>
 				</button>
 				<ul className={classes.list} onClick={hideNavHandler}>
 					<li>
