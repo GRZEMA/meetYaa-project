@@ -39,22 +39,19 @@ const handler: NextApiHandler = async (req, res) => {
 			return
 		}
 
-		if (event.deletedCount === 1) {
-			res.status(200).json({ message: 'Event deleted' })
-			return
-		}
-
 		db = client.db('auth')
 
 		const deletedEventFromUser = await db
 			.collection('users')
 			.updateOne(
 				{ userName: session!.user!.name },
-				{ $pop: { ownedEvents: id } }
+				{ $pull: { ownedEvents: id } }
 			)
 
-		console.log(deletedEventFromUser)
-
+		if (event.deletedCount === 1 && deletedEventFromUser.modifiedCount === 1) {
+			res.status(200).json({ message: 'Event deleted' })
+			return
+		}
 		res.status(500).json({ message: 'Something went wrong' })
 	}
 }

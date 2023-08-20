@@ -7,6 +7,7 @@ import { Exo } from 'next/font/google'
 import { validateEventForm } from '@/helpers/event-form-validator'
 import { createEvent } from '@/helpers/create-event'
 import { getSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const exo = Exo({ subsets: ['latin-ext'] })
 
@@ -36,6 +37,7 @@ const CreateEventForm = ({
 	const briefDescRef = useRef<HTMLInputElement>(null)
 	const priceRef = useRef<HTMLInputElement>(null)
 	const descriptionRef = useRef<HTMLTextAreaElement>(null)
+	const router = useRouter()
 
 	const formSubmissionHandler = async (e: FormEvent) => {
 		setLoading(true)
@@ -98,6 +100,7 @@ const CreateEventForm = ({
 		setModalType('Information')
 		openFunction('Success!', 'Event succesfully created!')
 		setLoading(false)
+		router.push(`/events/${res.data.event._id}`)
 
 		titleRef.current!.value = ''
 		locationRef.current!.value = ''
