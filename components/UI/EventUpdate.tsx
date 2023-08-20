@@ -87,6 +87,12 @@ const EventUpdate = ({
 	}
 
 	const deleteEventHandler = async () => {
+		const session = await getSession()
+		if (!session?.user?.name) {
+			setMessage('You need to be logged in to delete an event!')
+			return
+		}
+
 		setLoading(true)
 		const data = await deleteEvent(_id)
 
