@@ -43,13 +43,13 @@ const CredentialsUpdate = ({
 			const errors = validateLoginForm(enteredValue)
 
 			if (errors.length > 0) {
-				setMessage('Invalid password!')
+				setMessage('Invalid new password!')
 				return
 			}
 
 			const passMatch = await comparePasswords(session.user.name, oldPass)
 			if (!passMatch) {
-				setMessage('Incorrect password!')
+				setMessage('Incorrect old password!')
 				return
 			}
 			bodyValues.password = enteredValue
