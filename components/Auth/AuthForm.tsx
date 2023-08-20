@@ -37,9 +37,8 @@ const AuthForm = (): JSX.Element => {
 		const username = usernameRef.current!.value
 		const password = passwordRef.current!.value
 
-		const errors = validateLoginForm(username, password)
-
 		if (!login) {
+			const errors = validateLoginForm(username, password)
 			if (errors.length > 0) {
 				// return modal that says invalid inputs
 				setModalType('Error')
@@ -66,13 +65,8 @@ const AuthForm = (): JSX.Element => {
 
 			usernameRef.current!.value = ''
 			passwordRef.current!.value = ''
-			return
-		}
-
-		if (errors.length > 0) {
-			// return modal that says invalid inputs
-			setModalType('Error')
-			openFunction('Invalid input', 'Your inputs are invalid!', errors)
+			router.push('/my-profile')
+			closeFunction()
 			return
 		}
 
@@ -94,7 +88,7 @@ const AuthForm = (): JSX.Element => {
 		openFunction('Success', 'You have successfully logged in!')
 		usernameRef.current!.value = ''
 		passwordRef.current!.value = ''
-		await router.push('/my-profile')
+		router.push('/my-profile')
 		closeFunction()
 	}
 

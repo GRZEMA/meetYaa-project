@@ -1,4 +1,5 @@
 import { comparePasswords } from '@/helpers/auth-helpers'
+import { validateLoginForm } from '@/helpers/login-validator'
 import { getSession } from 'next-auth/react'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
@@ -24,10 +25,6 @@ const CredentialsUpdate = ({
 	const submitHandler = async () => {
 		const session = await getSession()
 		const value = inputRef!.current!.value
-		let oldPass = ''
-		if (label === 'password') {
-			oldPass = passwordRef.current!.value
-		}
 
 		if (!session?.user?.name) {
 			setMessage('You are not logged in!')
@@ -42,6 +39,14 @@ const CredentialsUpdate = ({
 		} = { username: session.user.name }
 
 		if (label === 'password') {
+			const oldPass = passwordRef.current!.value
+			const errors = validateLoginForm(oldPass)
+
+			if (errors.length > 0) {
+				setMessage('Invalid password!')
+				return
+			}
+
 			const passMatch = await comparePasswords(session.user.name, oldPass)
 			if (!passMatch) {
 				setMessage('Incorrect password!')

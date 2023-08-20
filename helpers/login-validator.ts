@@ -1,7 +1,7 @@
-export const validateLoginForm = (username: string, password: string) => {
+export const validateLoginForm = (password: string, username?: string) => {
 	const errors = []
 
-	if (username.trim() === '') {
+	if (username?.trim() === '') {
 		errors.push({
 			message: 'Username is required!',
 		})
