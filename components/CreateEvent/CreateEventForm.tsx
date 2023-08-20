@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 
 import Heading from '../UI/Heading'
 import classes from './CreateEventForm.module.scss'
@@ -27,6 +27,7 @@ const CreateEventForm = ({
 	openFunction,
 	setModalType,
 }: CreateEventFormProps): JSX.Element => {
+	const [loading, setLoading] = useState(false)
 	const titleRef = useRef<HTMLInputElement>(null)
 	const locationRef = useRef<HTMLInputElement>(null)
 	const dateRef = useRef<HTMLInputElement>(null)
@@ -37,6 +38,7 @@ const CreateEventForm = ({
 	const descriptionRef = useRef<HTMLTextAreaElement>(null)
 
 	const formSubmissionHandler = async (e: FormEvent) => {
+		setLoading(true)
 		e.preventDefault()
 
 		const session = await getSession()
@@ -44,6 +46,7 @@ const CreateEventForm = ({
 		if (!session) {
 			setModalType('Error')
 			openFunction('Error', 'You need to be logged in to create an event!')
+			setLoading(false)
 			return
 		}
 		const username = session!.user!.name!
@@ -70,6 +73,7 @@ const CreateEventForm = ({
 		if (errors.length > 0) {
 			setModalType('Error')
 			openFunction('Error', 'Please fill all the fields correctly!', errors)
+			setLoading(false)
 			return
 		}
 
@@ -88,10 +92,12 @@ const CreateEventForm = ({
 		if (res.status !== 200) {
 			setModalType('Error')
 			openFunction('Error', 'Something went wrong!')
+			setLoading(false)
 		}
 
 		setModalType('Information')
 		openFunction('Success!', 'Event succesfully created!')
+		setLoading(false)
 
 		titleRef.current!.value = ''
 		locationRef.current!.value = ''
@@ -167,8 +173,8 @@ const CreateEventForm = ({
 					ref={descriptionRef}
 				/>
 				<div className={classes.buttons}>
-					<button type='submit' className={exo.className}>
-						Submit
+					<button type='submit' className={exo.className} disabled={loading}>
+						{loading ? 'Loading...' : 'Submit'}
 					</button>
 					<button type='reset' className={exo.className}>
 						Cancel
