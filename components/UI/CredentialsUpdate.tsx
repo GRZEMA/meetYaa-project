@@ -24,7 +24,7 @@ const CredentialsUpdate = ({
 
 	const submitHandler = async () => {
 		const session = await getSession()
-		const value = inputRef!.current!.value
+		const enteredValue = inputRef!.current!.value
 
 		if (!session?.user?.name) {
 			setMessage('You are not logged in!')
@@ -40,7 +40,7 @@ const CredentialsUpdate = ({
 
 		if (label === 'password') {
 			const oldPass = passwordRef.current!.value
-			const errors = validateLoginForm(oldPass)
+			const errors = validateLoginForm(enteredValue)
 
 			if (errors.length > 0) {
 				setMessage('Invalid password!')
@@ -52,20 +52,20 @@ const CredentialsUpdate = ({
 				setMessage('Incorrect password!')
 				return
 			}
-			bodyValues.password = value
+			bodyValues.password = enteredValue
 		}
 
 		if (label === 'email') {
-			if (!value.includes('@')) {
+			if (!enteredValue.includes('@')) {
 				setMessage('Invalid email address!')
 				return
 			}
 
-			bodyValues.email = value
+			bodyValues.email = enteredValue
 		}
 
 		if (label === 'picture') {
-			bodyValues.profilePic = value
+			bodyValues.profilePic = enteredValue
 		}
 
 		setLoading(true)
