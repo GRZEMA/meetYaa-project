@@ -7,6 +7,12 @@ export const validateLoginForm = (password: string, username?: string) => {
 		})
 	}
 
+	if (username && username?.trim().length > 17) {
+		errors.push({
+			message: 'Username cannot be longer than 17 characters!',
+		})
+	}
+
 	if (password.trim() === '') {
 		errors.push({
 			message: 'Password is required!',
