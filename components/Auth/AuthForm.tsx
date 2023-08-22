@@ -119,7 +119,9 @@ const AuthForm = (): JSX.Element => {
 					required
 				/>
 				{login ? (
-					<button className={classes.forgot}>Forgot Password?</button>
+					<button className={classes.forgot} type='button'>
+						Forgot Password?
+					</button>
 				) : null}
 				<button
 					className={classes.confirm + ' ' + exo.className}
