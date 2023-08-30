@@ -38,7 +38,7 @@ const AuthForm = (): JSX.Element => {
 		const password = passwordRef.current!.value
 
 		if (!login) {
-			const errors = validateLoginForm(username, password)
+			const errors = validateLoginForm(password, username)
 			if (errors.length > 0) {
 				// return modal that says invalid inputs
 				setModalType('Error')
